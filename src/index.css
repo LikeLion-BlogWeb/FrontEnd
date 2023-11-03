@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* slider.tsx */
+input:checked + .one-slide-container .slide-img-container {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 1s ease-in-out;
+}
+
+input:checked + .one-slide-container .slide-controls label {
+  display: block;
+}
+
+input#img-1:checked ~ .slide_dots label#img-dot-1,
+input#img-2:checked ~ .slide_dots label#img-dot-2,
+input#img-3:checked ~ .slide_dots label#img-dot-3 {
+  opacity: 1;
+}
+
+input:checked + .one-slide-container .nav label {
+  display: block;
+}

@@ -6,8 +6,6 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
-// https://github.com/jen-frontend/fastcampus-react-blog
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
