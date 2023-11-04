@@ -8,9 +8,6 @@ import PostNew from "../views/PostNew";
 import PostEdit from "../views/PostEdit";
 import Profile from "../views/Profile";
 
-// reference
-// https://github.com/jen-frontend/fastcampus-react-blog
-
 export default function Router() {
     return (
         <>
