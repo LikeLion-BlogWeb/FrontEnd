@@ -1,74 +1,74 @@
 import { useState } from "react";
-import { IMG_SOURCE } from "../util/img"
-import { ControlLabel, OneSlideImgContainer, SlideControllContainer, SliderInput, SlidersWrapperUl, SlidesContainer, SlidesDot, SlidesDots } from "./style/slider.style";
+import { ControlLabel, OneSlideImgContainer, SlideControllContainer, SliderInput, SliderLi, SlidersWrapperUl, SlidesContainer, SlidesDot, SlidesDots, StyledImg } from "./style/slider.style";
+import likelion1 from "../img/likelion_1.png";
+import likelion2 from "../img/likelion_2.jpeg";
+import likelion3 from "../img/likelion_3.jpeg";
+
 
 export default function Slider() {
-
-    const ImgSrc = IMG_SOURCE;
     const [activeImg, setActiveImg] = useState(1);
-    const [hoverNumberImg, setHoverNumberImg] = useState(1);
 
     return (
         <>
             <SlidesContainer>
                 <SlidersWrapperUl>
-                    <SliderInput id="1" checked={activeImg === 1} />
-                    <li className="one-slide-container" style={{display: "block"}}>
+                    <SliderInput id="img-1" checked={activeImg === 1} />
+                    <SliderLi className="one-slide-container">
                         {/* 호버시에 상태를 하나 바꿔서 자식 컴포넌트들이 이를 토대로 opacity를 변경할 수 있도록 */}
-                        <OneSlideImgContainer className="slide-img-container" onMouseEnter={()=>setHoverNumberImg(1)}>
-                            <img alt="img1" src={ImgSrc.img1} />
-                        </OneSlideImgContainer>
-                        <SlideControllContainer>
-                            <ControlLabel active={(hoverNumberImg === activeImg).toString()} onClick={()=>setActiveImg(3)} direction="left">
-                                {/* left 화살표 */}
-                                <span>&lsaquo;</span>
-                            </ControlLabel>
-                            <ControlLabel active={(hoverNumberImg === activeImg).toString()} onClick={()=>setActiveImg(2)} direction="right">
-                                {/* right 화살표 */}
-                                <span>&rsaquo;</span>
-                            </ControlLabel>
-                        </SlideControllContainer>
-                    </li>
-
-                    <SliderInput id="2" checked={activeImg === 2} />
-                    <li className="one-slide-container" style={{display: "block"}}>
-                        {/* 호버시에 상태를 하나 바꿔서 자식 컴포넌트들이 이를 토대로 opacity를 변경할 수 있도록 */}
-                        <OneSlideImgContainer className="slide-img-container" onMouseEnter={()=>setHoverNumberImg(2)}>
-                            <img alt="img2" src={ImgSrc.img2} />
-                        </OneSlideImgContainer>
-                        <SlideControllContainer>
-                            <ControlLabel active={(hoverNumberImg === activeImg).toString()} onClick={()=>setActiveImg(1)} direction="left">
-                                {/* left 화살표 */}
-                                <span>&lsaquo;</span>
-                            </ControlLabel>
-                            <ControlLabel active={(hoverNumberImg === activeImg).toString()} onClick={()=>setActiveImg(3)} direction="right">
-                                {/* right 화살표 */}
-                                <span>&rsaquo;</span>
-                            </ControlLabel>
-                        </SlideControllContainer>
-                    </li>
-
-                    <SliderInput id="3" checked={activeImg === 3} />
-                    <li className="one-slide-container" style={{display: "block"}}>
-                        {/* 호버시에 상태를 하나 바꿔서 자식 컴포넌트들이 이를 토대로 opacity를 변경할 수 있도록 */}
-                        <OneSlideImgContainer className="slide-img-container" onMouseEnter={()=>setHoverNumberImg(3)}>
-                            <img alt="img3" src={ImgSrc.img3} />
+                        <OneSlideImgContainer className="slide-img-container">
+                            <StyledImg alt="img1" src={likelion1} id="img-1" />
                         </OneSlideImgContainer>
                         <SlideControllContainer className="slide-controls">
-                            <ControlLabel active={(hoverNumberImg === activeImg).toString()} onClick={()=>setActiveImg(2)} direction="left">
+                            <ControlLabel  onClick={()=>setActiveImg(3)} direction="left">
                                 {/* left 화살표 */}
                                 <span>&lsaquo;</span>
                             </ControlLabel>
-                            <ControlLabel active={(hoverNumberImg === activeImg).toString()} onClick={()=>setActiveImg(1)} direction="right">
+                            <ControlLabel onClick={()=>setActiveImg(2)} direction="right">
                                 {/* right 화살표 */}
                                 <span>&rsaquo;</span>
                             </ControlLabel>
                         </SlideControllContainer>
-                    </li>
+                    </SliderLi>
+
+                    <SliderInput id="img-2" checked={activeImg === 2} />
+                    <SliderLi className="one-slide-container">
+                        {/* 호버시에 상태를 하나 바꿔서 자식 컴포넌트들이 이를 토대로 opacity를 변경할 수 있도록 */}
+                        <OneSlideImgContainer className="slide-img-container">
+                            <StyledImg alt="img2" src={likelion2} id="img-2" />
+                        </OneSlideImgContainer>
+                        <SlideControllContainer className="slide-controls">
+                            <ControlLabel onClick={()=>setActiveImg(1)} direction="left">
+                                {/* left 화살표 */}
+                                <span>&lsaquo;</span>
+                            </ControlLabel>
+                            <ControlLabel onClick={()=>setActiveImg(3)} direction="right">
+                                {/* right 화살표 */}
+                                <span>&rsaquo;</span>
+                            </ControlLabel>
+                        </SlideControllContainer>
+                    </SliderLi>
+
+                    <SliderInput id="img-3" checked={activeImg === 3} />
+                    <SliderLi className="one-slide-container">
+                        {/* 호버시에 상태를 하나 바꿔서 자식 컴포넌트들이 이를 토대로 opacity를 변경할 수 있도록 */}
+                        <OneSlideImgContainer className="slide-img-container">
+                            <StyledImg alt="img3" src={likelion3} id="img-3" />
+                        </OneSlideImgContainer>
+                        <SlideControllContainer className="slide-controls">
+                            <ControlLabel onClick={()=>setActiveImg(2)} direction="left">
+                                {/* left 화살표 */}
+                                <span>&lsaquo;</span>
+                            </ControlLabel>
+                            <ControlLabel onClick={()=>setActiveImg(1)} direction="right">
+                                {/* right 화살표 */}
+                                <span>&rsaquo;</span>
+                            </ControlLabel>
+                        </SlideControllContainer>
+                    </SliderLi>
                     <SlidesDots className="slide_dots">
-                        <SlidesDot onClick={()=>setActiveImg(1)} id="1"></SlidesDot>
-                        <SlidesDot onClick={()=>setActiveImg(2)} id="2"></SlidesDot>
-                        <SlidesDot onClick={()=>setActiveImg(3)} id="3"></SlidesDot>
+                        <SlidesDot onClick={()=>setActiveImg(1)} id="img-dot-1"></SlidesDot>
+                        <SlidesDot onClick={()=>setActiveImg(2)} id="img-dot-2"></SlidesDot>
+                        <SlidesDot onClick={()=>setActiveImg(3)} id="img-dot-3"></SlidesDot>
                     </SlidesDots>
                 </SlidersWrapperUl>
             </SlidesContainer>
