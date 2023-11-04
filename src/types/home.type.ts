@@ -6,6 +6,5 @@ export type PostNavProps = {
 }
 // styled-component with typescript error : https://velog.io/@oneny/TS-styled-components-No-overload-matches-this-call
 export type SliderLabelActiveProps = {
-    active: string;
     direction: string;
 }
