@@ -13,6 +13,13 @@ code {
 }
 
 /* slider.tsx */
+.slide-img-container:hover + .slide-controls label {
+  opacity: 0.5;
+}
+.slide-controls label:hover {
+  opacity: 1;
+}
+
 input:checked + .one-slide-container .slide-img-container {
   opacity: 1;
   transform: scale(1);

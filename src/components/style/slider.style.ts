@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { SliderLabelActiveProps } from "../../types/home.type"
 
 export const SlidesContainer = styled.div`
+    margin: 0 auto;
     max-width: 980px;
     margin-top: 38px;
-    margin: 0 auto;
 `;
 export const SlidersWrapperUl = styled.ul`
     /* 슬라이드들의 기준점 설정 */
@@ -17,13 +17,16 @@ export const SlidersWrapperUl = styled.ul`
     list-style: none;
     user-select: none;
 `;
-export const SliderInput = styled.input.attrs(props => ({
+export const SliderInput = styled.input.attrs(() => ({
     type: "radio",
-    id: `img-${props.id}`,
     readOnly: true,
 }))`
     display: none;
 `;
+
+export const SliderLi = styled.li`
+    display: block;
+`
 
 export const OneSlideImgContainer = styled.div`
     display: block;
@@ -35,11 +38,11 @@ export const OneSlideImgContainer = styled.div`
     transition: all 0.5s ease-in-out;
 `;
 
-export const SlideImg = styled.img`
+export const StyledImg = styled.img`
     width: auto;
     min-width: 100%;
     height: 100%;
-`;
+`
 
 export const SlideControllContainer = styled.div`
     position: absolute;
@@ -51,12 +54,12 @@ export const SlideControllContainer = styled.div`
     line-height: 400px;
     color: #fff;
 `
-export const ControlLabel = styled.div<SliderLabelActiveProps>`
+export const ControlLabel = styled.label<SliderLabelActiveProps>`
     /* 우선 안 보이도록 하다가 호버시에 보여지도록 */
     display: none;
     position: absolute;
     padding: 0 20px;
-    opacity: ${(props) => props.active === 'true' ? "0.5" : "0"};
+    opacity: 0;
     transition: opacity 0.2s;
     cursor: pointer;
     width: 49%;
@@ -79,9 +82,7 @@ export const SlidesDots = styled.div`
     z-index: 10;
     text-align: center;
 `
-export const SlidesDot = styled.label.attrs((props)=>({
-    id: `img-dot-${props.id}`
-}))`
+export const SlidesDot = styled.label`
     display: inline-block;
     width: 10px;
     height: 10px;
