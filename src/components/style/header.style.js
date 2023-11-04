@@ -13,7 +13,7 @@ export const StyledHeader = styled.header`
 export const HeaderLogoLink = styled(Link)`
     color: black;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 32px;
     text-decoration: none;
 `;
 

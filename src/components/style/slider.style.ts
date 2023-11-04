@@ -42,6 +42,7 @@ export const StyledImg = styled.img`
     width: auto;
     min-width: 100%;
     height: 100%;
+    border-radius: 30px;
 `
 
 export const SlideControllContainer = styled.div`
@@ -62,6 +63,7 @@ export const ControlLabel = styled.label<SliderLabelActiveProps>`
     opacity: 0;
     transition: opacity 0.2s;
     cursor: pointer;
+    /* 전체 이미지 사이즈의 절반 정도씩 차지하도록 설정 */
     width: 49%;
 
     /* default는 왼쪽, 아니면 오른쪽 */
