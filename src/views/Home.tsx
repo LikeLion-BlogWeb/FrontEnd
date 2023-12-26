@@ -8,7 +8,7 @@ export default function Home() {
         <>
             <Header />
             <Slider />
-            <PostList />
+            <PostList hasNavigation={true} defaultTab="all" />
             <Footer />
         </>
     )
