@@ -1,12 +1,16 @@
 import { useState } from "react"
-import { ErrorMsgContainer, FormInnerWrapper, LoginInput, LoginSubmitInput, LoginTitle, StyledForm, StyledLabel, StyledLink } from "./style/signin.style";
+import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function SigninForm() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+      // deconstructing object
         const {
           target: { name, value },
         } = e;
@@ -37,15 +41,45 @@ export default function SigninForm() {
 
     // 비동기 함수 : todo list : 토큰 방식으로 인증
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
+      e.preventDefault();
+      
+      try {
+        // 서버로부터의 응답
+        const response = await fetch("https://port-0-backend-jvpb2mloft5vlw.sel5.cloudtype.app/auth/signin", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          })
+        });
+        
+        // 서버로부터 응답받은 내용을 json화한 데이터
+        const data = await response.json();
+        
+        if(data?.token) {
+            toast.success("로그인에 성공했습니다");
+            // 토큰을 로컬 스토리지에 저장 : 잘 작동하는 거 확인했습니다 : key이름이 token
+            localStorage.setItem('token', data?.token);
+            // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
+            navigate("/");
 
-
+            console.log(data.token);
+        } else {
+          toast.error("회원가입을 우선 해주세요!");
+        }
+      } catch(err: any) {
+        toast.error(err?.code);
+        console.log(err);
+      }
     }
 
     return (
         <>
-            <StyledForm>
-                <LoginTitle>로그인</LoginTitle>
+            <StyledForm onSubmit={onSubmit}>
+                <LoginAndRegisterTitle>로그인</LoginAndRegisterTitle>
                 <FormInnerWrapper>
                     <StyledLabel htmlFor="email">이메일</StyledLabel>
                     <LoginInput 
@@ -82,11 +116,11 @@ export default function SigninForm() {
                     </StyledLink>
                 </FormInnerWrapper>
                 <FormInnerWrapper>
-                    <LoginSubmitInput 
+                    <LoginSubmitButton 
                         type="submit"
                         value="로그인"
                         disabled={error?.length > 0}
-                    />
+                    >로그인</LoginSubmitButton>
                 </FormInnerWrapper>
             </StyledForm>
         </>

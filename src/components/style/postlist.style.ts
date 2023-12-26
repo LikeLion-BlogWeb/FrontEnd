@@ -66,7 +66,7 @@ export const PostEtc = styled.div`
 `
 
 export const PostTitle = styled.div`
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     margin: 14px 0;
     color: black;

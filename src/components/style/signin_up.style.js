@@ -10,7 +10,7 @@ export const StyledForm = styled.form`
     margin-top: 20px;
     /* width는 내부 컴포넌트들의 사이즈로 결정 */
 `
-export const LoginTitle = styled.h1`
+export const LoginAndRegisterTitle = styled.h1`
     text-align: center;
     margin-bottom: 4px;
 `
@@ -54,7 +54,7 @@ export const StyledLink = styled(Link)`
     }
 `
 
-export const LoginSubmitInput = styled.input`
+export const LoginSubmitButton = styled.button`
     width: 100%;
     height: 48px;
     font-weight: 600;

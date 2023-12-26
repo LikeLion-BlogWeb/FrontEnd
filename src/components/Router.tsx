@@ -3,19 +3,20 @@ import Signin from "../views/Signin";
 import Signup from "../views/Signup";
 import Home from "../views/Home";
 import PostList from "./PostList";
-import PostDetail from "../views/PostDetail";
-import PostNew from "../views/PostNew";
-import PostEdit from "../views/PostEdit";
-import Profile from "../views/Profile";
+import PostDetail from "../components/PostDetail";
+import PostNew from "../components/PostNew";
+import PostEdit from "../components/PostEdit";
+import Profile from "../components/Profile";
 
 export default function Router() {
+    
     return (
         <>
             <Routes>
                 {/* 진입 지점 */}
                 <Route path="/" element={<Home />} />
                 {/* 게시물 리스트 볼 수 있는 페이지 */}
-                <Route path="/posts" element={<PostList />} />
+                <Route path="/posts" element={<PostList hasNavigation={true} defaultTab="all" />} />
                 {/* 로그인 후 좀 더 디테일한 게시물 목록 페이지? */}
                 <Route path="/posts/:id" element={<PostDetail />} />
                 {/* 글쓰기 부분 */}

@@ -1,44 +1,67 @@
-import { useState } from "react"
-import { activeTabType } from "../types/home.type";
+import { useEffect, useState } from "react"
 import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit } from "./style/postlist.style";
+import { useContext } from "react";
+import { AuthContext } from "context/AuthContext";
+import { PostListProps, TabType } from "types/postlist.type";
+import { POST_DATA } from "dummy";
 
-export default function PostList({activeNav = true}) {
-    const [isActiveTab, setIsActiveTab] = useState<activeTabType>("all");
+export default function PostList({
+    hasNavigation = true, 
+    defaultTab = "all"} : PostListProps
+    ) {
+    const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
+    const [posts, setPosts] = useState(POST_DATA);
+    const {authToken, setAuthToken} = useContext(AuthContext);
 
+    // async function getPosts() {
+    //     // 응답값 : 포스트들 : 배열
+    //     const response = await fetch("https://port-0-backend-jvpb2mloft5vlw.sel5.cloudtype.app/post", {
+    //         method: "GET",
+    //     });
+    //     const data = await response.json();
+
+    //     console.log(data);
+    //     setPosts(data);
+    // }
+
+    // useEffect(() => {
+    //     getPosts();
+    // }, []);
+    
     return (
         <>
             {/* 내 글인지, 모두에게 보여지는 글인지 상태에 따라 결정 */}
             {
-                activeNav && (
+                hasNavigation && (
                     <PostNavContainer>
                         <PostNav
-                            onClick={()=>setIsActiveTab("all")}
-                            active={isActiveTab === 'all' ? 'active' : ''}
+                            onClick={()=>setActiveTab("all")}
+                            active={activeTab === 'all' ? 'active' : ''}
                         >전체</PostNav>
                         <PostNav
-                            onClick={()=>setIsActiveTab("my")}
-                            active={isActiveTab === 'my' ? 'active' : ''}
+                            onClick={()=>setActiveTab("my")}
+                            active={activeTab === 'my' ? 'active' : ''}
                         >내 글</PostNav>
                     </PostNavContainer>
                 )
             }
             <PostListContainer>
                 {
-                    [...new Array(10)].map((value: any, idx: number) => (
+                    posts.map((post: any, idx: number) => (
                         <PostContainer key={idx}>
-                            <PostProfileWrapperLink to={`/posts/${idx}`}>
+                            <PostProfileWrapperLink to={`/posts/${post.id}`}>
                                 <PostProfileContainer>
                                     <PostProfile />
                                     {/* 글 작성자 이름 & 작성 시간 */}
                                     <PostEtc>이시영</PostEtc>
-                                    <PostEtc>2023년 11월 1일</PostEtc>
+                                    <PostEtc>{`${post.writeDate.slice(0,9).replace(/-/g, '.')}`}</PostEtc>
                                 </PostProfileContainer>
 
                                 <PostTitle>
-                                    게시물 {idx}
+                                    {`${post.title}`}
                                 </PostTitle>
                                 <PostText>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at mattis lectus. Nunc elementum tristique luctus. Vivamus a dolor sit amet arcu consectetur auctor. Suspendisse lobortis nec lacus at blandit. Cras vehicula eleifend enim, nec lobortis risus luctus non. Curabitur pharetra sapien in ipsum suscipit, nec lacinia sem consectetur. Nullam odio sem, finibus ac euismod eget, laoreet ut erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc quis risus urna. Mauris tempus rutrum sem eget vulputate. Donec placerat felis at tincidunt tempus. In neque lacus, scelerisque eget laoreet ac, pretium sit amet lorem. Mauris et molestie sapien. Cras non enim lectus.
+                                    {`${post.content}`}
                                 </PostText>  
                             </PostProfileWrapperLink>
 
