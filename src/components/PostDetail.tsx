@@ -2,16 +2,17 @@ import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { PostProps } from "types/postlist.type";
+import { BACK_URL } from "../url";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);
     const { authToken } = useContext(AuthContext);
     const params = useParams();
     
-
+    // id기반으로 서버로부터 데이터 얻어냅니다
     async function getPost(id: string) {
         if(id) {
-            const response = await fetch(`https://port-0-backend-jvpb2mloft5vlw.sel5.cloudtype.app/post/${id}`);
+            const response = await fetch(`${BACK_URL}/post/${id}`);
             const postData = await response.json();
 
             setPost(postData);
@@ -22,7 +23,7 @@ export default function PostDetail() {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
 
         if(checkConfirmBeforeDelete && post && post.id) {
-            
+
         }
     }
     

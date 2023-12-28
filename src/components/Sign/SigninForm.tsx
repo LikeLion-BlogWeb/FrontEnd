@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { BACK_URL } from "../../url";
 
 export default function SigninForm() {
     const navigate = useNavigate();
@@ -45,7 +46,7 @@ export default function SigninForm() {
       
       try {
         // 서버로부터의 응답
-        const response = await fetch("https://port-0-backend-jvpb2mloft5vlw.sel5.cloudtype.app/auth/signin", {
+        const response = await fetch(`${BACK_URL}/auth/signin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

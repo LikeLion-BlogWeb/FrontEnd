@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { PostListProps, TabType } from "types/postlist.type";
 import { POST_DATA } from "dummy";
+import { BACK_URL } from "../url";
 
 export default function PostList({
     hasNavigation = true, 
@@ -13,20 +14,24 @@ export default function PostList({
     const [posts, setPosts] = useState(POST_DATA);
     const {authToken, setAuthToken} = useContext(AuthContext);
 
-    // async function getPosts() {
-    //     // 응답값 : 포스트들 : 배열
-    //     const response = await fetch("https://port-0-backend-jvpb2mloft5vlw.sel5.cloudtype.app/post", {
-    //         method: "GET",
-    //     });
-    //     const data = await response.json();
+    async function getPosts() {
+        // 응답값 : 포스트들 : 배열
+        const response = await fetch(`${BACK_URL}/post`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        });
+        // 현재 아무 정보도 들어있지 않아서 JSON이 아니라고 뜨는듯?
+        // const data = await response.json();
+        // setPosts(data);
+        
+        console.log(response);
+    }
 
-    //     console.log(data);
-    //     setPosts(data);
-    // }
-
-    // useEffect(() => {
-    //     getPosts();
-    // }, []);
+    useEffect(() => {
+        getPosts();
+    }, []);
     
     return (
         <>

@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { BACK_URL } from "../../url";
 
 export default function SignupForm() {
     const [email, setEmail] = useState<string>("")
@@ -59,7 +60,7 @@ export default function SignupForm() {
 
         // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
         try {
-            const response = await fetch("https://port-0-backend-jvpb2mloft5vlw.sel5.cloudtype.app/auth/signup", {
+            const response = await fetch(`//${BACK_URL}/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -91,7 +92,7 @@ export default function SignupForm() {
     return (
         <>
             <StyledForm onSubmit={onSubmit}>
-                <LoginAndRegisterTitle>로그인</LoginAndRegisterTitle>
+                <LoginAndRegisterTitle>회원가입</LoginAndRegisterTitle>
                 <FormInnerWrapper>
                     <StyledLabel htmlFor="email">이메일</StyledLabel>
                     <LoginInput 
@@ -133,7 +134,7 @@ export default function SignupForm() {
                 }
                 <FormInnerWrapper>
                     계정이 이미 있으신가요?
-                    <StyledLink to="/signup">
+                    <StyledLink to="/signin">
                         로그인하기
                     </StyledLink>
                 </FormInnerWrapper>
