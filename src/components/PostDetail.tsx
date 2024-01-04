@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { PostProps } from "types/postlist.type";
 import { BACK_URL } from "../url";
+import { PostDetailContainer } from "./style/postdetail.style";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);
@@ -35,6 +36,11 @@ export default function PostDetail() {
     }, [params?.id]);
 
     return (
-        <h1>This is post-detail page</h1>
+        <>
+            <h1>This is post-detail page</h1>
+            <PostDetailContainer>
+
+            </PostDetailContainer>
+        </>
     )
 }

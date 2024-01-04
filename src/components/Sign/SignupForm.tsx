@@ -18,46 +18,48 @@ export default function SignupForm() {
         } = e;
 
         if (name === "email") {
-        setEmail(value);
-        const validRegex =
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            setEmail(value);
 
-        if (!value?.match(validRegex)) {
-            setError("이메일 형식이 올바르지 않습니다.");
-        } else {
-            setError("");
-        }
+            const validRegex =
+                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+            if (!value?.match(validRegex)) {
+                setError("이메일 형식이 올바르지 않습니다.");
+            } else {
+                setError("");
+            }
         }
 
         if (name === "password") {
-        setPassword(value);
+            setPassword(value);
 
-        if (value?.length < 8) {
-            setError("비밀번호는 8자리 이상으로 입력해주세요");
-        } else if (passwordConfirm?.length > 0 && value !== passwordConfirm) {
-            setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.");
-        } else {
-            setError("");
-        }
+            if (value?.length < 8) {
+                setError("비밀번호는 8자리 이상으로 입력해주세요");
+            } else if (passwordConfirm?.length > 0 && value !== passwordConfirm) {
+                setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.");
+            } else {
+                setError("");
+            }
         }
 
         if (name === "password_confirm") {
-        setPasswordConfirm(value);
+            setPasswordConfirm(value);
 
-        if (value?.length < 8) {
-            setError("비밀번호는 8자리 이상으로 입력해주세요");
-        } else if (value !== password) {
-            setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.");
-        } else {
-            setError("");
-        }
+            if (value?.length < 8) {
+                setError("비밀번호는 8자리 이상으로 입력해주세요");
+            } else if (value !== password) {
+                setError("비밀번호와 비밀번호 확인 값이 다릅니다. 다시 확인해주세요.");
+            } else {
+                setError("");
+            }
         }
     };
 
     // 제출버튼 눌렀을때 동작하는 함수
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        console.log(typeof password, email);
+        
         // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
         try {
             const response = await fetch(`//${BACK_URL}/auth/signup`, {
@@ -66,9 +68,9 @@ export default function SignupForm() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    email,
-                    password,
-                  })
+                    email: email,
+                    password: password,
+                })
             });
             const data = await response.json();
 
@@ -101,6 +103,7 @@ export default function SignupForm() {
                         name="email"
                         value={email}
                         onChange={onChange}
+                        autoComplete="off"
                     />
                 </FormInnerWrapper>
 
@@ -112,6 +115,7 @@ export default function SignupForm() {
                         name="password"
                         value={password}
                         onChange={onChange}
+                        autoComplete="off"
                     />
                 </FormInnerWrapper>
 
@@ -123,6 +127,7 @@ export default function SignupForm() {
                         name="password_confirm"
                         required
                         onChange={onChange}
+                        autoComplete="off"
                     />
                 </FormInnerWrapper>
                 {

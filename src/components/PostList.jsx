@@ -2,37 +2,39 @@ import { useEffect, useState } from "react"
 import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit } from "./style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
-import { PostListProps, TabType } from "types/postlist.type";
-import { POST_DATA } from "dummy";
 import { BACK_URL } from "../url";
 
 export default function PostList({
     hasNavigation = true, 
-    defaultTab = "all"} : PostListProps
+    defaultTab = "all"}
     ) {
-    const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
-    const [posts, setPosts] = useState(POST_DATA);
-    const {authToken, setAuthToken} = useContext(AuthContext);
-
-    async function getPosts() {
-        // 응답값 : 포스트들 : 배열
-        const response = await fetch(`${BACK_URL}/post`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
-        // 현재 아무 정보도 들어있지 않아서 JSON이 아니라고 뜨는듯?
-        // const data = await response.json();
-        // setPosts(data);
-        
-        console.log(response);
-    }
+    const [activeTab, setActiveTab] = useState(defaultTab);
+    const [posts, setPosts] = useState([]);
+    const {authToken} = useContext(AuthContext);
 
     useEffect(() => {
-        getPosts();
-    }, []);
+        const postData = async () => {
+            try {
+                // 응답값 : 포스트들 : 배열
+                const response = await fetch(`//${BACK_URL}/post`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": authToken
+                    },
+                });
+                const data = await response.json();
     
+                console.log(posts);
+    
+                setPosts(data);
+            } catch(e) {
+                console.log(e);
+            }
+        }
+
+        postData();
+    }, [authToken, posts]);
+
     return (
         <>
             {/* 내 글인지, 모두에게 보여지는 글인지 상태에 따라 결정 */}
@@ -52,7 +54,7 @@ export default function PostList({
             }
             <PostListContainer>
                 {
-                    posts.map((post: any, idx: number) => (
+                    posts && posts.map((post, idx) => (
                         <PostContainer key={idx}>
                             <PostProfileWrapperLink to={`/posts/${post.id}`}>
                                 <PostProfileContainer>
