@@ -12,6 +12,7 @@ export default function PostList({
     const [posts, setPosts] = useState([]);
     const {authToken} = useContext(AuthContext);
 
+    // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
         const postData = async () => {
             try {
@@ -33,7 +34,8 @@ export default function PostList({
         }
 
         postData();
-    }, [authToken, posts]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>

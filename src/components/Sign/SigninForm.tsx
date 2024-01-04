@@ -77,10 +77,6 @@ export default function SigninForm() {
       }
     }
 
-    // useEffect(() => {
-    //   console.log(authToken);
-    // }, [authToken])
-
     return (
         <>
             <StyledForm onSubmit={onSubmit}>
