@@ -73,13 +73,12 @@ export default function SignupForm() {
                 })
             });
             const data = await response.json();
-
-            console.log(data);
             
-            if(data?.token) {
+            // 성공의 응답값으로 이메일이 있으면
+            if(data?.email) {
                 toast.success("회원가입에 성공했습니다.");
-                // 토큰을 로컬 스토리지에 저장
-                localStorage.setItem('token', data?.token);
+                // 이메일을 로컬 스토리지에 저장 : 이메일을 게시물 작성자와 일치하는지 확인할때 이용
+                localStorage.setItem('user-email', data?.email);
                 // 응답으로 넘어온 토큰이 존재하면 로그인 화면으로
                 navigate("/signin")
             } else {
