@@ -45,11 +45,11 @@ export default function PostList({
                     <PostNavContainer>
                         <PostNav
                             onClick={()=>setActiveTab("all")}
-                            active={activeTab === 'all' ? 'active' : ''}
+                            $active={activeTab === 'all' ? 'active' : ''}
                         >전체</PostNav>
                         <PostNav
                             onClick={()=>setActiveTab("my")}
-                            active={activeTab === 'my' ? 'active' : ''}
+                            $active={activeTab === 'my' ? 'active' : ''}
                         >내 글</PostNav>
                     </PostNavContainer>
                 )

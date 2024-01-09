@@ -15,8 +15,8 @@ export const PostNavContainer = styled.div`
 `
 
 export const PostNav = styled.div<PostNavProps>`
-    color: ${props => props.active === 'active' ? 'orange' : 'black'};
-    font-weight: ${props =>  props.active === 'active' ? '600' : '400'};
+    color: ${props => props.$active === 'active' ? 'orange' : 'black'};
+    font-weight: ${props =>  props.$active === 'active' ? '600' : '400'};
     display: flex;
     gap: 12px;
     margin: 0 auto;
