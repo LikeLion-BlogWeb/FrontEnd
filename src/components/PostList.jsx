@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit } from "./style/postlist.style";
+import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit, PostUtilLink } from "./style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../url";
@@ -24,8 +24,6 @@ export default function PostList({
                     },
                 });
                 const data = await response.json();
-    
-                console.log(posts);
     
                 setPosts(data);
             } catch(e) {
@@ -76,7 +74,9 @@ export default function PostList({
 
                             <PostUtilContainer>
                                 <PostUtilDelete>삭제</PostUtilDelete>
-                                <PostUtilEdit>수정</PostUtilEdit>
+                                <PostUtilEdit>
+                                    <PostUtilLink>수정</PostUtilLink>
+                                </PostUtilEdit>
                             </PostUtilContainer>
                         </PostContainer>
                     ))

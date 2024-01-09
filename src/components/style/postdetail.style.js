@@ -10,9 +10,6 @@ export const PostDetailContainer = styled.div`
     /* 가로 중앙 정렬 */
     margin: 0 auto;
     line-height: 24px;
-
-    border-left: 1px solid orange;
-    border-right: 1px solid orange;
 `
 
 export const PostDetailWrapper = styled.div`

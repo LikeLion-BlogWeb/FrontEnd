@@ -106,3 +106,7 @@ export const PostUtilEdit = styled.div`
         color: orange;
     }
 `
+
+export const PostUtilLink = styled(Link)`
+    text-decoration: none;
+`
