@@ -19,7 +19,7 @@ export const AuthContext = createContext<authContextValue>({
 
 // 상태관리
 export function AuthContextProvider({children}: UserAuthProps) {
-    const [authToken, setAuthToken] = useState<any>({});
+    const [authToken, setAuthToken] = useState<any>("");
     const [userEmail, setUserEmail] = useState("");
 
     return (
