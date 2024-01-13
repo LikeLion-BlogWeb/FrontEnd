@@ -11,6 +11,7 @@ export default function Slider() {
     return (
         <>
             <SlidesContainer>
+                {/* ul안에 li태그 3묶음이 존재합니다. 각 li태그 안에는 이미지컨테이너와 화살표 두개를 지닌 컨테이너 두 개가 있습니다. */}
                 <SlidersWrapperUl>
                     <SliderInput id="img-1" checked={activeImg === 1} />
                     <SliderLi className="one-slide-container">
@@ -19,7 +20,7 @@ export default function Slider() {
                             <StyledImg alt="img1" src={likelion1} id="img-1" />
                         </OneSlideImgContainer>
                         <SlideControllContainer className="slide-controls">
-                            <ControlLabel  onClick={()=>setActiveImg(3)} direction="left">
+                            <ControlLabel onClick={()=>setActiveImg(3)} direction="left">
                                 {/* left 화살표 */}
                                 <span>&lsaquo;</span>
                             </ControlLabel>

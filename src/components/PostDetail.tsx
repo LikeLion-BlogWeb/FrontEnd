@@ -11,12 +11,11 @@ export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);
     // context api에서의 value는 authToken, setAuthToken 두가지가 있음
     // 객체구조분해를 통해 authToken만 변수로 꺼내와서 사용
-    const { authToken } = useContext(AuthContext);
+    const { authToken, userEmail } = useContext(AuthContext);
     // postDetail의 param은 post의 id
     const params = useParams();
     const navigate = useNavigate();
-    const user_email = localStorage.getItem("user-email");
-    
+
     // id기반으로 서버로부터 데이터 얻어냅니다
     async function getPost(id: string) {
         if(id) {
@@ -27,7 +26,6 @@ export default function PostDetail() {
                 }
             });
             const postData = await response.json();
-
             setPost(postData);
         }
     }
@@ -54,12 +52,11 @@ export default function PostDetail() {
         }
     }
     
-    // 경로에서 id 파라미터 값이 변경될때마다 새로 함수 불러오기
     useEffect(() => {
         if(params?.id) {
             getPost(params?.id);
         }
-    }, [params?.id]);
+    }, []);
 
     return (
         <>
@@ -81,13 +78,13 @@ export default function PostDetail() {
                                     </PostCategory>
                                     {/* 작성자 이메일과 동일하면 삭제 아이콘도 뜨도록 설정 */}
                                     {   
-                                        post?.email === user_email && (
-                                            <>
-                                                <PostDelete role="presentation" onClick={() => deletePost(params)}>삭제</PostDelete>
+                                        post?.email === userEmail && (
+                                            <div style={{display: "flex", gap: "7px"}}>
                                                 <PostEdit>
-                                                    <PostEditLink to={`/`}>수정</PostEditLink>
+                                                    <PostEditLink to={`/posts/edit/${params?.id}`}>수정</PostEditLink>
                                                 </PostEdit>
-                                            </>
+                                                <PostDelete role="presentation" onClick={() => deletePost(params)}>삭제</PostDelete>
+                                            </div>
                                         ) 
                                     }
                                     <PostTextWrapper>

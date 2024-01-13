@@ -2,11 +2,11 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Signin from "../views/Signin";
 import Signup from "../views/Signup";
 import Home from "../views/Home";
-import PostList from "./PostList";
-import PostForm from "./PostForm";
-import PostEdit from "../components/PostEdit";
-import Profile from "../components/Profile";
 import Detail from "views/Post/Detail";
+import Edit from "views/Post/Edit";
+import List from "views/Post/List";
+import New from "views/Post/New";
+import ProfileView from "views/ProfileView";
 
 export default function Router({isAuthenticated} : {
     isAuthenticated : boolean
@@ -21,15 +21,15 @@ export default function Router({isAuthenticated} : {
                             {/* 진입 지점 */}
                             <Route path="/" element={<Home />} />
                             {/* 게시물 리스트 볼 수 있는 페이지 */}
-                            <Route path="/posts" element={<PostList hasNavigation={true} defaultTab="all" />} />
+                            <Route path="/posts" element={<List />} />
                             {/* 로그인 후 좀 더 디테일한 게시물 목록 페이지? */}
                             <Route path="/posts/:id" element={<Detail />} />
                             {/* 글쓰기 부분 */}
-                            <Route path="/posts/new" element={<PostForm />} />
+                            <Route path="/posts/new" element={<New />} />
                             {/* 게시물 편집 */}
-                            <Route path="/posts/edit/:id" element={<PostEdit />} />
+                            <Route path="/posts/edit/:id" element={<Edit />} />
                             {/* 프로필 확인 페이지 */}
-                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/profile" element={<ProfileView />} />
                             {/* default 경로 설정 */}
                             <Route path="*" element={<Navigate replace to="/" />} />
                         </>

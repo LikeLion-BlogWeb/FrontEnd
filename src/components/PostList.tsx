@@ -3,14 +3,15 @@ import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, P
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../url";
+import { PostProps } from "types/postlist.type";
 
 export default function PostList({
     hasNavigation = true, 
     defaultTab = "all"}
     ) {
     const [activeTab, setActiveTab] = useState(defaultTab);
-    const [posts, setPosts] = useState([]);
-    const {authToken} = useContext(AuthContext);
+    const [posts, setPosts] = useState<PostProps[]>([]);
+    const { authToken, userEmail } = useContext(AuthContext);
 
     // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
@@ -71,13 +72,18 @@ export default function PostList({
                                     {`${post.content}`}
                                 </PostText>  
                             </PostProfileWrapperLink>
-
-                            <PostUtilContainer>
-                                <PostUtilDelete>삭제</PostUtilDelete>
-                                <PostUtilEdit>
-                                    <PostUtilLink>수정</PostUtilLink>
-                                </PostUtilEdit>
-                            </PostUtilContainer>
+                            {
+                                userEmail === post.email && (
+                                    <>
+                                        <PostUtilContainer>
+                                            <PostUtilDelete>삭제</PostUtilDelete>
+                                            <PostUtilEdit>
+                                                <PostUtilLink to={`/posts/${post.id}`}>수정</PostUtilLink>
+                                            </PostUtilEdit>
+                                        </PostUtilContainer>
+                                    </>
+                                )
+                            }
                         </PostContainer>
                     ))
                 }
