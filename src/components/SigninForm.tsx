@@ -10,7 +10,7 @@ export default function SigninForm() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
-    const { setAuthToken } = useContext(AuthContext);
+    const { setAuthToken, setUserEmail } = useContext(AuthContext);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
       // deconstructing object
@@ -64,8 +64,9 @@ export default function SigninForm() {
 
         if(data?.token) {
             toast.success("로그인에 성공했습니다");
-            // 토큰을 로컬 스토리지에 저장 : 잘 작동하는 거 확인했습니다 : key이름이 token
+            // 유저의 토큰과 이메일을 전역상태 관리에 올리기
             setAuthToken(data?.token);
+            setUserEmail(data?.email);
             // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
             navigate("/");
         } else {
