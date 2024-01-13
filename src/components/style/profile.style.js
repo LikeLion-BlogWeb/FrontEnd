@@ -37,3 +37,14 @@ export const ProfileName = styled.div`
 export const ProfileEmail = styled.div`
     font-weight: 500;
 `
+
+export const ProfileLogoutDiv = styled.div`
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+        color: orange;
+    }
+`
