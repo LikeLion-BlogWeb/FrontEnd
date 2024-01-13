@@ -132,6 +132,7 @@ export default function PostForm() {
             // 기존 게시물의 내용물을 content훅 내용으로 설정 -> textarea-value에 연결되어있음
             setContent(post?.content);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
