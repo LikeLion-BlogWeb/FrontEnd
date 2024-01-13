@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const PostFormContainer = styled.div`
+export const PostFormContainer = styled.form`
     /* 세로 가로 - 중앙설정 */
     margin: 0 auto;
     max-width: 680px;

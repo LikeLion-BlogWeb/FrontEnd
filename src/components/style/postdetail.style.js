@@ -62,24 +62,22 @@ export const PostCategory = styled.div`
 
 export const PostDelete = styled.div`
     cursor: pointer;
-    color: white;
+    color: black;
 
     &:hover, &:focus {
-        color: black;
+        color: orange;
     }
 `
 
 export const PostEdit = styled.div`
-    &:hover, &:focus {
-        color: black;
-    }
+    color: black;
 `
 export const PostEditLink = styled(Link)`
     text-decoration: none;
-    color: gray;
+    color: black;
 
     &:hover, &:focus {
-        color: black;
+        color: orange;
     }
 `
 
