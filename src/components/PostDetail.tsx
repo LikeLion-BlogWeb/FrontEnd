@@ -56,6 +56,7 @@ export default function PostDetail() {
         if(params?.id) {
             getPost(params?.id);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
