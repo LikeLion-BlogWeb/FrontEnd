@@ -18,7 +18,7 @@ export default function PostList({
         const postData = async () => {
             try {
                 // 응답값 : 포스트들 : 배열
-                const response = await fetch(`${BACK_URL}/post`, {
+                const response = await fetch(`${BACK_URL}/post`.replace("kmu-likelion-blog.netlify.app/", ""), {
                     method: "GET",
                     headers: {
                         "Authorization": authToken
