@@ -1,4 +1,4 @@
-import { FooterLink, StyleFooter } from "./style/footer.style";
+import { FooterLink, StyleFooter } from "../style/footer.style";
 
 export default function Footer() {
     return (

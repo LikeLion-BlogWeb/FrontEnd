@@ -1,4 +1,4 @@
-import { StyledLoader } from "./style/loader.style";
+import { StyledLoader } from "../style/loader.style";
 
 export default function Loader() {
     return (

@@ -1,4 +1,4 @@
-import { HeaderLink, HeaderLogoLink, StyledHeader } from "./style/header.style";
+import { HeaderLink, HeaderLogoLink, StyledHeader } from "../style/header.style";
 
 export default function Header() {
     return (

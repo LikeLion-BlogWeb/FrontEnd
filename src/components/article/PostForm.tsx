@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "./style/postform.style";
+import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "../style/postform.style";
 import { PostProps } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../url";
+import { BACK_URL } from "../../url";
 import { toast } from "react-toastify";
 
 function formatDate(date: Date) : string {
