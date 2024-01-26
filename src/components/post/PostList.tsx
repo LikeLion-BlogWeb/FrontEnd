@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit, PostUtilLink } from "./style/postlist.style";
+import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit, PostUtilLink } from "../style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../url";
+import { BACK_URL } from "../../url";
 import { PostProps } from "types/postlist.type";
 
 export default function PostList({
@@ -18,7 +18,7 @@ export default function PostList({
         const postData = async () => {
             try {
                 // 응답값 : 포스트들 : 배열
-                const response = await fetch(`//${BACK_URL}/post`, {
+                const response = await fetch(`${BACK_URL}/post`, {
                     method: "GET",
                     headers: {
                         "Authorization": authToken

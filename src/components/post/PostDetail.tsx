@@ -2,10 +2,10 @@ import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { PostProps } from "types/postlist.type";
-import { BACK_URL } from "../url";
-import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "./style/postdetail.style";
+import { BACK_URL } from "../../url";
+import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
 import { toast } from "react-toastify";
-import { PostTitle } from "./style/postlist.style";
+import { PostTitle } from "../style/postlist.style";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);

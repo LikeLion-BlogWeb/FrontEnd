@@ -48,7 +48,7 @@ export default function SigninForm() {
       
       try {
         // 서버로부터의 응답
-        const response = await fetch(`//${BACK_URL}/auth/signin`, {
+        const response = await fetch(`${BACK_URL}/auth/signin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

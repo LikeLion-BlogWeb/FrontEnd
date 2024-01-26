@@ -1,6 +1,6 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import PostList from "../components/PostList";
+import Footer from "../components/common/Footer";
+import Header from "../components/common/Header";
+import PostList from "../components/post/PostList";
 import Slider from "../components/Slider"
 
 export default function Home() {

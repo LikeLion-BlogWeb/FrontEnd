@@ -1,5 +1,5 @@
-import Header from "components/Header";
-import PostForm from "components/PostForm";
+import Header from "components/common/Header";
+import PostForm from "components/post/PostForm";
 
 export default function Edit() {
     return (
