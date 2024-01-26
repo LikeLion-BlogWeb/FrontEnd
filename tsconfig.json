@@ -25,8 +25,8 @@
     "src"
   ],
   "paths": {
-    "views/*": ["views/*"],
-    "components/*": ["components/*"],
-    "context/*": ["context/*"]
+    "views/*": ["src/views/*"],
+    "components/*": ["src/components/*"],
+    "context/*": ["src/context/*"]
   }
 }
