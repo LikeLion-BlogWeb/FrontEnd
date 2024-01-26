@@ -1,6 +1,6 @@
 import Footer from "components/common/Footer";
 import Header from "components/common/Header";
-import PostList from "components/posts/PostList";
+import PostList from "components/article/PostList";
 import Profile from "components/Profile";
 
 export default function ProfileView() {
