@@ -1,6 +1,6 @@
 import Footer from "components/common/Footer";
 import Header from "components/common/Header";
-import PostList from "components/post/PostList";
+import PostList from "components/posts/PostList";
 
 export default function List() {
 
