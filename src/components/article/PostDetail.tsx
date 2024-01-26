@@ -19,7 +19,7 @@ export default function PostDetail() {
     // id기반으로 서버로부터 데이터 얻어냅니다
     async function getPost(id: string) {
         if(id) {
-            const response = await fetch(`//${BACK_URL}/post/${id}`, {
+            const response = await fetch(`${BACK_URL}/post/${id}`.replace("kmu-likelion-blog.netlify.app/", ""), {
                 method: "GET",
                 headers: {
                     "Authorization": authToken

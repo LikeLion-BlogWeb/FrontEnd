@@ -59,7 +59,7 @@ export default function PostForm() {
         try {   
             if(post && post?.id) {
                 // 기존 게시물을 수정하는 경우의 내용 : PUT
-                const response = await fetch(`//${BACK_URL}/post`, {
+                const response = await fetch(`${BACK_URL}/post`.replace("kmu-likelion-blog.netlify.app/", ""), {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
