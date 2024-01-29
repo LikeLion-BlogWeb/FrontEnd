@@ -4,6 +4,8 @@ import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../../url";
 import { PostProps } from "types/postlist.type";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function PostList({
     hasNavigation = true, 
@@ -12,6 +14,29 @@ export default function PostList({
     const [activeTab, setActiveTab] = useState(defaultTab);
     const [posts, setPosts] = useState<PostProps[]>([]);
     const { authToken, userEmail } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    async function deletePost(id: number, post: PostProps) {
+        const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
+
+        // 사용자가 삭제를 결정하고, 게시물이 존재하면 삭제 프로세스 시작
+        if(checkConfirmBeforeDelete && post && post.id) {
+            const response = await fetch(`${BACK_URL}/post/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": authToken
+                }
+            });
+
+            if(response.status === 200) {
+                toast.success("게시글을 삭제 완료했습니다.");
+                // PostList로 돌아가기
+                navigate("/");
+            } else {
+                toast.error("게시글 삭제를 실패했습니다.");
+            }
+        }
+    }
 
     // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
@@ -76,7 +101,7 @@ export default function PostList({
                                 userEmail === post.email && (
                                     <>
                                         <PostUtilContainer>
-                                            <PostUtilDelete>삭제</PostUtilDelete>
+                                            <PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</PostUtilDelete>
                                             <PostUtilEdit>
                                                 <PostUtilLink to={`/posts/${post.id}`}>수정</PostUtilLink>
                                             </PostUtilEdit>

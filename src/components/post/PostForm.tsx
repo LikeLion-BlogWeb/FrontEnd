@@ -120,6 +120,7 @@ export default function PostForm() {
                     }
                 });
                 const postData = await response.json();
+                console.log("수정페이지");
                 setPost(postData);
             }
     }

@@ -30,12 +30,12 @@ export default function PostDetail() {
         }
     }
 
-    async function deletePost(id: any) {
+    async function deletePost(id: number): Promise<void> {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
 
         // 사용자가 삭제를 결정하고, 게시물이 존재하면 삭제 프로세스 시작
         if(checkConfirmBeforeDelete && post && post.id) {
-            const response = await fetch(`//${BACK_URL}/post/${id}`, {
+            const response = await fetch(`${BACK_URL}/post/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": authToken
@@ -84,7 +84,7 @@ export default function PostDetail() {
                                                 <PostEdit>
                                                     <PostEditLink to={`/posts/edit/${params?.id}`}>수정</PostEditLink>
                                                 </PostEdit>
-                                                <PostDelete role="presentation" onClick={() => deletePost(params)}>삭제</PostDelete>
+                                                <PostDelete role="presentation" onClick={() => deletePost(post?.id)}>삭제</PostDelete>
                                             </div>
                                         ) 
                                     }
