@@ -1,6 +1,6 @@
 import Footer from "components/common/Footer";
 import Header from "../../components/common/Header";
-import SignupForm from "../../components/SignupForm";
+import SignupForm from "../../components/authentication/SignupForm";
 
 export default function Signup() {
     return (
