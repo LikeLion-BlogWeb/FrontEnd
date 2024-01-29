@@ -145,7 +145,7 @@ export default function SignupForm() {
                         type="submit"
                         value="회원가입"
                         disabled={error?.length > 0}
-                    >로그인</LoginSubmitButton>
+                    >회원가입</LoginSubmitButton>
                 </FormInnerWrapper>
             </StyledForm>
         </>

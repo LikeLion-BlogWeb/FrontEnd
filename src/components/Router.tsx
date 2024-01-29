@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Signin from "../views/Signin";
-import Signup from "../views/Signup";
+import Signin from "../views/authentication/Signin";
+import Signup from "../views/authentication/Signup";
 import Home from "../views/Home";
 import Detail from "views/articleView/Detail";
 import Edit from "views/articleView/Edit";
