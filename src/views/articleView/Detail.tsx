@@ -6,7 +6,7 @@ export default function Detail() {
 
     return (
         <>
-            <Header />
+            <Header linkTextDisplay={true} />
             <PostDetail />
             <Footer />
         </>

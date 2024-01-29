@@ -6,7 +6,7 @@ import Slider from "../components/Slider"
 export default function Home() {
     return (
         <>
-            <Header />
+            <Header linkTextDisplay={true} />
             <Slider />
             <PostList hasNavigation={true} defaultTab="all" />
             <Footer />

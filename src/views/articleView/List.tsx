@@ -6,7 +6,7 @@ export default function List() {
 
     return (
         <>
-            <Header />
+            <Header linkTextDisplay={true} />
             <PostList hasNavigation={false} defaultTab="all" />
             <Footer />
         </>

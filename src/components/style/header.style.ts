@@ -17,10 +17,14 @@ export const HeaderLogoLink = styled(Link)`
     text-decoration: none;
 `;
 
-export const HeaderLink = styled(Link)`
+interface HeaderLinkProps {
+    displayattr: string;
+}
+export const HeaderLink = styled(Link)<HeaderLinkProps>`
     text-decoration: none;
     margin: 0 10px;
     color: black;
+    display: ${props => props.displayattr==="true" ? "inline-block" : "none"};
 
     &:focus, &:hover {
         color: orange;
