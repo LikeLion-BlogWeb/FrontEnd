@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const PostFormContainer = styled.form`
     /* 세로 가로 - 중앙설정 */
     margin: 0 auto;
-    max-width: 680px;
+    max-width: 880px;
     padding: 20px;
     margin-top: 20px;
 `
@@ -35,8 +35,8 @@ export const PostFormTextarea = styled.textarea`
     line-height: 1.5;
     border-radius: 0.3rem;
     border: 1px solid orange;
-    width: 96%;
-    max-width: 680px;
+    width: 100%;
+    box-sizing: border-box;
 `
 
 export const PostFormSelect = styled.select`
