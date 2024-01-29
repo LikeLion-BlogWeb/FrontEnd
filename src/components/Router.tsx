@@ -2,10 +2,10 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Signin from "../views/authentication/Signin";
 import Signup from "../views/authentication/Signup";
 import Home from "../views/Home";
-import Detail from "views/articleView/Detail";
-import Edit from "views/articleView/Edit";
-import List from "views/articleView/List";
-import New from "views/articleView/New";
+import Detail from "views/post/Detail";
+import Edit from "views/post/Edit";
+import List from "views/post/List";
+import New from "views/post/New";
 import ProfileView from "views/ProfileView";
 
 export default function Router({isAuthenticated} : {
