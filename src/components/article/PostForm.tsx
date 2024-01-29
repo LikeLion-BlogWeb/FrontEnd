@@ -113,7 +113,7 @@ export default function PostForm() {
 
     const getPost = async (id: string) => {
             if(id) {
-                const response = await fetch(`//${BACK_URL}/post/${id}`, {
+                const response = await fetch(`${BACK_URL}/post/${id}`, {
                     method: "GET",
                     headers: {
                         "Authorization": authToken
