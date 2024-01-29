@@ -64,7 +64,9 @@ export const LoginSubmitButton = styled.button`
     font-size: 18px;
     color: white;
     background-color: black;
-
+    /* 미세하게 버튼 테두리 남는거 제거하는 속성 2개 */
+    border: none;
+    outline: none;
 
     &:focus, &:hover {
         background-color: orange;
