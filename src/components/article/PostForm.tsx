@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "./style/postform.style";
+import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "../style/postform.style";
 import { PostProps } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../url";
+import { BACK_URL } from "../../url";
 import { toast } from "react-toastify";
 
 function formatDate(date: Date) : string {
@@ -59,7 +59,7 @@ export default function PostForm() {
         try {   
             if(post && post?.id) {
                 // 기존 게시물을 수정하는 경우의 내용 : PUT
-                const response = await fetch(`//${BACK_URL}/post`, {
+                const response = await fetch(`${BACK_URL}/post`.replace("kmu-likelion-blog.netlify.app/", ""), {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

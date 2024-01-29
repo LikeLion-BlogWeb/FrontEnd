@@ -2,10 +2,10 @@ import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { PostProps } from "types/postlist.type";
-import { BACK_URL } from "../url";
-import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "./style/postdetail.style";
+import { BACK_URL } from "../../url";
+import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
 import { toast } from "react-toastify";
-import { PostTitle } from "./style/postlist.style";
+import { PostTitle } from "../style/postlist.style";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostProps | null>(null);
@@ -19,7 +19,7 @@ export default function PostDetail() {
     // id기반으로 서버로부터 데이터 얻어냅니다
     async function getPost(id: string) {
         if(id) {
-            const response = await fetch(`//${BACK_URL}/post/${id}`, {
+            const response = await fetch(`${BACK_URL}/post/${id}`.replace("kmu-likelion-blog.netlify.app/", ""), {
                 method: "GET",
                 headers: {
                     "Authorization": authToken
