@@ -84,7 +84,7 @@ export default function PostForm() {
                 }
             } else {
                 // 새로 게시물을 업로드하는 경우의 내용 : POST
-                const response = await fetch(`//${BACK_URL}/post`, {
+                const response = await fetch(`${BACK_URL}/post`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
