@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "../style/postform.style";
-import { PostProps } from "types/postlist.type";
+import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../../url";
@@ -27,7 +27,7 @@ export default function PostForm() {
     const params = useParams();
 
     // 이전에 작성된 게시물인 경우는 post상태를 담아두고 수정하는 타이밍인지 새 글 작성인지 확인
-    const [post, setPost] = useState<PostProps | null>(null);
+    const [post, setPost] = useState<PostDataType | null>(null);
     const [title, setTitle] = useState<string>("");
     // 콘텐츠(메인 글)는 사용자가 많이 입력하므로, 객체로 묶어서 관리하기보다는 별도의 상태들로 쪼개서 관리
     const [content, setContent] = useState<any>("");
@@ -59,8 +59,8 @@ export default function PostForm() {
         try {   
             if(post && post?.id) {
                 // 기존 게시물을 수정하는 경우의 내용 : PUT
-                const response = await fetch(`${BACK_URL}/post`.replace("kmu-likelion-blog.netlify.app/", ""), {
-                    method: "POST",
+                const response = await fetch(`${BACK_URL}/post`, {
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": authToken,
@@ -75,7 +75,7 @@ export default function PostForm() {
                         views: post?.views
                     })
                 });    
-                if(response.status === 201) {
+                if(response.status === 200) {
                     toast.success("게시물을 수정하였습니다.");
                     // 메인 화면으로 다시 이동
                     navigate("/");
@@ -111,7 +111,7 @@ export default function PostForm() {
         }
     }
 
-    const getPost = async (id: string) => {
+    const getPost: (id: string) => Promise<PostDataType> = async (id: string) => {
             if(id) {
                 const response = await fetch(`${BACK_URL}/post/${id}`, {
                     method: "GET",
@@ -120,21 +120,34 @@ export default function PostForm() {
                     }
                 });
                 const postData = await response.json();
-                console.log("수정페이지");
-                setPost(postData);
+
+                return postData;
             }
     }
 
     useEffect(() => {
-        // 
-        if(params?.id) {
-            // 게시물이 존재하면 post훅을 설정하고
-            getPost(params?.id);
-            // 기존 게시물의 내용물을 content훅 내용으로 설정 -> textarea-value에 연결되어있음
-            setContent(post?.content);
+        // params.id는 undefined | string -> string인 경우에만 진행
+        const fetchData = async () => {
+            if(params.id) {
+                try {
+                    // 우선 게시물을 가져올때까지 기다림
+                    const postData = await getPost(params.id);
+                    
+                    // 게시물 내용을 가져오면 그제서야 동기적으로 훅에 저장
+                    setPost(postData);
+                    setContent(postData.content);
+                    setTitle(postData.title);
+                } catch(error) {
+                    console.log("Error while fetching data: ", error)
+                }
+
+            }
         }
+        fetchData();
+        
+        // url의 id값이 변경될때 다시 호출
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [params.id]);
 
     return (
         <PostFormContainer onSubmit={onSubmit}>
@@ -147,6 +160,9 @@ export default function PostForm() {
                     required
                     value={title}
                     onChange={onChange}
+                    style={{
+                        width: "250px"
+                    }}
                 />
             </PostFormInputWrapper>
 
