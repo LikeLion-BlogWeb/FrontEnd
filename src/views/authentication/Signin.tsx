@@ -1,6 +1,6 @@
 import Footer from "components/common/Footer"
 import Header from "../../components/common/Header"
-import SigninForm from "../../components/SigninForm"
+import SigninForm from "../../components/authentication/SigninForm"
 
 export default function Signin() {
     return (

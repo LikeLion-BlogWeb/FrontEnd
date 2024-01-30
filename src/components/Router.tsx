@@ -6,7 +6,7 @@ import Detail from "views/post/Detail";
 import Edit from "views/post/Edit";
 import List from "views/post/List";
 import New from "views/post/New";
-import ProfileView from "views/ProfileView";
+import ProfileView from "views/authentication/ProfileView";
 
 export default function Router({isAuthenticated} : {
     isAuthenticated : boolean
