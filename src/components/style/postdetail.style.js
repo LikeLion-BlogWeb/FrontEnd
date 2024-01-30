@@ -82,7 +82,7 @@ export const PostEditLink = styled(Link)`
 `
 
 export const PostTextWrapper = styled.div`
-    color: dimgray;
+    color: black;
     font-size: 16px;
     padding: 20px 0;
     white-space: pre-wrap;

@@ -70,7 +70,8 @@ export default function PostDetail() {
                                 <PostProfileWrapper>
                                     <PostProfile />
                                     <PostAuthorName>{post?.email}</PostAuthorName>
-                                    <PostDate>{post?.writeDate}</PostDate>
+                                    {/* ex) 2023-11-02T00:57:24 */}
+                                    <PostDate>{post?.writeDate.split('T').join(' ')}</PostDate>
                                 </PostProfileWrapper>
                                 <PostUtilsWrapper>
                                     <PostCategory>
