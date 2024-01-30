@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilEdit, PostUtilLink } from "../style/postlist.style";
+import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilLink } from "../style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../../url";
@@ -102,9 +102,7 @@ export default function PostList({
                                     <>
                                         <PostUtilContainer>
                                             <PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</PostUtilDelete>
-                                            <PostUtilEdit>
-                                                <PostUtilLink to={`/posts/${post.id}`}>수정</PostUtilLink>
-                                            </PostUtilEdit>
+                                            <PostUtilLink to={`/posts/${post.id}`}>수정</PostUtilLink>
                                         </PostUtilContainer>
                                     </>
                                 )

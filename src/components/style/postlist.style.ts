@@ -80,7 +80,7 @@ export const PostTitle = styled.div`
 `
 export const PostText = styled.div`
     font-size: 16px;
-    color: black;
+    color: dimgray;
 `
 
 export const PostUtilContainer  = styled.div`
@@ -98,15 +98,13 @@ export const PostUtilDelete = styled.div`
         color: orange;
     }
 `
-export const PostUtilEdit = styled.div`
+
+export const PostUtilLink = styled(Link)`
+    text-decoration: none;
     color: black;
     cursor: pointer;
 
     &:hover, &:focus {
         color: orange;
     }
-`
-
-export const PostUtilLink = styled(Link)`
-    text-decoration: none;
 `
