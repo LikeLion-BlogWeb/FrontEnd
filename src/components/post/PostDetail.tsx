@@ -1,14 +1,14 @@
 import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { PostProps } from "types/postlist.type";
+import { PostDataType } from "types/postlist.type";
 import { BACK_URL } from "../../url";
 import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
 import { toast } from "react-toastify";
 import { PostTitle } from "../style/postlist.style";
 
 export default function PostDetail() {
-    const [post, setPost] = useState<PostProps | null>(null);
+    const [post, setPost] = useState<PostDataType | null>(null);
     // context api에서의 value는 authToken, setAuthToken 두가지가 있음
     // 객체구조분해를 통해 authToken만 변수로 꺼내와서 사용
     const { authToken, userEmail } = useContext(AuthContext);
@@ -19,7 +19,7 @@ export default function PostDetail() {
     // id기반으로 서버로부터 데이터 얻어냅니다
     async function getPost(id: string) {
         if(id) {
-            const response = await fetch(`${BACK_URL}/post/${id}`.replace("kmu-likelion-blog.netlify.app/", ""), {
+            const response = await fetch(`${BACK_URL}/post/${id}`, {
                 method: "GET",
                 headers: {
                     "Authorization": authToken
@@ -85,6 +85,7 @@ export default function PostDetail() {
                                                 <PostEdit>
                                                     <PostEditLink to={`/posts/edit/${params?.id}`}>수정</PostEditLink>
                                                 </PostEdit>
+                                                <br />
                                                 <PostDelete role="presentation" onClick={() => deletePost(post?.id)}>삭제</PostDelete>
                                             </div>
                                         ) 
