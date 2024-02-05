@@ -6,18 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from 'context/AuthContext';
 
 function App() {
-	const { authToken } = useContext(AuthContext);
-	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
-	useEffect(() => {
-		// authToken의 존재여부에 따라 true or false로 상태변경
-		setIsAuthenticated(!!authToken);
-	}, [authToken]);
 
 	return (
 		<>
 			<ToastContainer />
-			<Router isAuthenticated={isAuthenticated}/>
+			<Router/>
 		</>
 	);
 }
