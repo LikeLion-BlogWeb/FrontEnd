@@ -94,7 +94,7 @@ export default function PostList({
                                 </PostImageContainer>
                                 <PostBody>
                                     <PostTitle>
-                                    {`${post.title}`}
+                                        {`${post.title}`}
                                     </PostTitle>
                                     <PostText>
                                         {`${post.content}`}
