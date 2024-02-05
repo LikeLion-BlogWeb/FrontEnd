@@ -2,6 +2,9 @@
 import styled from "styled-components";
 
 export const StyleFooter = styled.footer`
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     min-height: 40px;
     padding: 20px 40px 0 40px;
     font-size: 14px;
@@ -11,14 +14,6 @@ export const StyleFooter = styled.footer`
     gap: 20px;
     border-top: 1px solid orange;
 `;
-
-// export const FooterLink = styled(Link)`
-//     text-decoration: none;
-//     color: black;
-//     &:focus, &:hover {
-//         color: orange;
-//     }
-// `;
 
 export const FooterCopyRightDiv = styled.div`
     width: 100%;
