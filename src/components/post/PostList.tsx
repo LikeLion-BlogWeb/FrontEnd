@@ -101,7 +101,7 @@ export default function PostList({
                                     </PostTitle>
                                     <PostText>
                                         {/* 너무 길면 잘라냅니다 */}
-                                        {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,68).concat("...")}{`${post.content}`}
+                                        {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,68).concat("...")}
                                     </PostText>  
                                 </PostBody>
                             </PostProfileWrapperLink>
