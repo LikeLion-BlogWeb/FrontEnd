@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer,PostProfileWrapperLink, PostText, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilLink } from "../style/postlist.style";
+import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer, PostProfileWrapperLink, PostText, PostImageContainer, PostImage, PostBody, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilLink } from "../style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../../url";
@@ -92,14 +92,18 @@ export default function PostList({
                                     {/* 작성날짜 데이터 포맷 수정해서 UI에 표현 */}
                                     <PostEtc>{`${post.writeDate.slice(0,10).replace(/-/g, '.')}`}</PostEtc>
                                 </PostProfileContainer>
-
-                                <PostTitle>
-                                    {`${post.title}`}
-                                </PostTitle>
-                                <PostText>
-                                    {/* 너무 길면 잘라냅니다 */}
-                                    {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,68).concat("...")}
-                                </PostText>  
+                                <PostImageContainer>
+                                    <PostImage />
+                                </PostImageContainer>
+                                <PostBody>
+                                    <PostTitle>
+                                        {`${post.title}`}
+                                    </PostTitle>
+                                    <PostText>
+                                        {/* 너무 길면 잘라냅니다 */}
+                                        {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,68).concat("...")}
+                                    </PostText>  
+                                </PostBody>
                             </PostProfileWrapperLink>
                             {
                                 userEmail === post.email && (
