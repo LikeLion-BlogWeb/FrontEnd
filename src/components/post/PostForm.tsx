@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "../style/postform.style";
+import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton } from "../style/postform.style";
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../../url";
 import { toast } from "react-toastify";
+import MDEditor from "@uiw/react-md-editor";
 
 function formatDate(date: Date) : string {
     const year = date.getFullYear();
@@ -44,9 +45,6 @@ export default function PostForm() {
                 break;
             case "category":
                 // 나중에 카테고리 영역이 생기면 추후에 더 작업할 것
-                break;
-            case "content":
-                setContent(value);
                 break;
             default:
                 break;
@@ -184,15 +182,10 @@ export default function PostForm() {
             </PostFormInputWrapper>
 
             <PostFormInputWrapper>
-                <PostFormLabel htmlFor="content">내용</PostFormLabel>
-                <PostFormTextarea 
-                    name="content"
-                    id="content"
-                    required
-                    // 사용자 input으로 들어온 컨텐츠 or 불러온 게시물 수정의 기존 내용
-                    value={content}
-                    onChange={onChange}
-                />
+                <h4 style={{display: "block", fontWeight: "500", marginBottom: "10px", marginTop:"20px"}}>내용</h4>
+                <div id="markdown-area" className="markdown-area">
+                    <MDEditor value={content} onChange={setContent} />
+                </div>
             </PostFormInputWrapper>
 
             <PostFormInputWrapper>

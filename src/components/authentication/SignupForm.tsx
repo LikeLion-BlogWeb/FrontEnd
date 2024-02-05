@@ -58,7 +58,6 @@ export default function SignupForm() {
     // 제출버튼 눌렀을때 동작하는 함수
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(typeof password, email);
         
         // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
         try {

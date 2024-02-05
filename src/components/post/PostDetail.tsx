@@ -6,6 +6,7 @@ import { BACK_URL } from "../../url";
 import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
 import { toast } from "react-toastify";
 import { PostTitle } from "../style/postlist.style";
+import MDEditor from "@uiw/react-md-editor";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostDataType | null>(null);
@@ -91,7 +92,12 @@ export default function PostDetail() {
                                         ) 
                                     }
                                     <PostTextWrapper>
-                                        {post?.content}
+                                        <MDEditor.Markdown source={post?.content} style={{
+                                            padding: "20px 20px 20px 0",
+                                            borderRadius: "5px",
+                                            backgroundColor: "white",
+                                            color: "black",
+                                        }}/>
                                     </PostTextWrapper>
                                 </PostUtilsWrapper>
                                 {/* 댓글 기능? */}
