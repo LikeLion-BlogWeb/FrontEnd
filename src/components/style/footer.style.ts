@@ -13,6 +13,8 @@ export const StyleFooter = styled.footer`
     justify-content: center;
     gap: 20px;
     border-top: 1px solid orange;
+    /* 배경색을 지정해줘야 다른 컨텐츠들이 가려짐 */
+    background-color: white;
 `;
 
 export const FooterCopyRightDiv = styled.div`
