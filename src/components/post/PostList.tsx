@@ -104,6 +104,7 @@ export default function PostList({
                                         {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,68).concat("...")}
                                     </PostText>  
                                 </PostBody>
+                                
                             </PostProfileWrapperLink>
                             {
                                 userEmail === post.email && (

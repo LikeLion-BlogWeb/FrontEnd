@@ -96,15 +96,15 @@ export const PostImage = styled.div`
 
 export const PostBody = styled.div`
     max-width: 100%;
-    height: 80px;
-    margin: 16px 16px 0 16px;
+    height: 60px;
+    margin: 16px;
 
 `
 export const PostTitle = styled.div`
     font-size: 24px;
     font-weight: 600;
-    margin-top: 12px;
-    padding-bottom: 0.14em;
+    padding-top: 0.14em;
+    padding-bottom: 0.28em;
     color: black;
     overflow: hidden;
     white-space: nowrap;
@@ -119,8 +119,9 @@ export const PostTitle = styled.div`
     }
 `
 export const PostText = styled.div`
+    max-width: 100%;
+    height: 40px;
     font-size: 16px;
-    margin-top: 12px;
     color: dimgray;
     overflow: hidden;
     white-space: normal;
@@ -134,7 +135,7 @@ export const PostUtilContainer  = styled.div`
     gap: 8px;
     font-size: 14px;
     color: black;
-    margin: 0 16px;
+    margin: 16px;
 `
 export const PostUtilDelete = styled.div`
     cursor: pointer;

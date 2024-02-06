@@ -1,8 +1,21 @@
 import { HeaderLink, HeaderLoginLink, HeaderLogoLink, StyledHeader } from "../style/header.style";
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from 'context/AuthContext';
 
 export default function Header({
     linkTextDisplay = false
     }: { linkTextDisplay: boolean }) {
+    const { authToken, userEmail } = useContext(AuthContext);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    useEffect(() => {
+		// authToken의 존재여부에 따라 true or false로 상태변경
+		setIsAuthenticated(!!authToken);
+	}, [authToken]);
+    const handleLogin = () => {
+        // 로그인 처리를 수행한 후
+        // 로그인 상태를 변경합니다.
+        setIsAuthenticated(true);
+    };
 
     return (
         <StyledHeader>
