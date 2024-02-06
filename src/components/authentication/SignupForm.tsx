@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 
 export default function SignupForm() {
     const [email, setEmail] = useState<string>("")
@@ -58,7 +58,6 @@ export default function SignupForm() {
     // 제출버튼 눌렀을때 동작하는 함수
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(typeof password, email);
         
         // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
         try {

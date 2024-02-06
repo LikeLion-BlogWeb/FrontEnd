@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer, PostProfileWrapperLink, PostText, PostImageContainer, PostImage, PostBody, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilLink } from "../style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 import { PostDataType } from "types/postlist.type";
 import { toast } from "react-toastify";
+import { getPostList } from "functions/post.function";
 
 export default function PostList({
     hasNavigation = true, 
@@ -40,26 +41,55 @@ export default function PostList({
         }
     }
 
+    function filteringPosts(posts: PostDataType[]) {
+        const template = (post: PostDataType) => 
+        <>
+            <PostContainer>
+                <PostProfileWrapperLink to={`/posts/${post.id}`}>
+                    <PostProfileContainer>
+                        <PostProfile />
+                        {/* 글 작성자 이름 & 작성 시간 */}
+                        <PostEtc>이시영</PostEtc>
+                        {/* 작성날짜 데이터 포맷 수정해서 UI에 표현 */}
+                        <PostEtc>{`${post.writeDate.slice(0,10).replace(/-/g, '.')}`}</PostEtc>
+                    </PostProfileContainer>
+                    <PostImageContainer>
+                        <PostImage />
+                    </PostImageContainer>
+                    <PostBody>
+                        <PostTitle>
+                            {`${post.title}`}
+                        </PostTitle>
+                        <PostText>
+                            {/* 너무 길면 잘라냅니다 */}
+                            {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,48).concat("...")}
+                        </PostText>  
+                    </PostBody>
+                </PostProfileWrapperLink>
+                {
+                    userEmail === post.email && (
+                        <>
+                            <PostUtilContainer>
+                                <PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</PostUtilDelete>
+                                <br />
+                                <PostUtilLink to={`/posts/edit/${post.id}`}>수정</PostUtilLink>
+                            </PostUtilContainer>
+                        </>
+                    )
+                }
+            </PostContainer>
+        </>
+
+        // 모든 글 vs 내 글
+        return activeTab === "all" ? posts.map(post => <div key={post.id}>{template(post)}</div>) : posts.filter(post => post.email === userEmail).map(post => <div key={post.id}>{template(post)}</div>);
+    }
+
     // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
-        const postData = async () => {
-            try {
-                // 응답값 : 포스트들 : 배열
-                const response = await fetch(`${BACK_URL}/post`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": authToken
-                    },
-                });
-                const data = await response.json();
-    
-                setPosts(data);
-            } catch(e) {
-                console.log(e);
-            }
-        }
+        getPostList(authToken)
+            .then((data) => setPosts(data))
+            .catch((error) => console.error(error));
 
-        postData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -82,42 +112,7 @@ export default function PostList({
             }
             <PostListContainer>
                 {
-                    posts && posts.map((post, idx) => (
-                        <PostContainer key={idx}>
-                            <PostProfileWrapperLink to={`/posts/${post.id}`}>
-                                <PostProfileContainer>
-                                    <PostProfile />
-                                    {/* 글 작성자 이름 & 작성 시간 */}
-                                    <PostEtc>이시영</PostEtc>
-                                    {/* 작성날짜 데이터 포맷 수정해서 UI에 표현 */}
-                                    <PostEtc>{`${post.writeDate.slice(0,10).replace(/-/g, '.')}`}</PostEtc>
-                                </PostProfileContainer>
-                                <PostImageContainer>
-                                    <PostImage />
-                                </PostImageContainer>
-                                <PostBody>
-                                    <PostTitle>
-                                        {`${post.title}`}
-                                    </PostTitle>
-                                    <PostText>
-                                        {/* 너무 길면 잘라냅니다 */}
-                                        {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,68).concat("...")}
-                                    </PostText>  
-                                </PostBody>
-                            </PostProfileWrapperLink>
-                            {
-                                userEmail === post.email && (
-                                    <>
-                                        <PostUtilContainer>
-                                            <PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</PostUtilDelete>
-                                            <br />
-                                            <PostUtilLink to={`/posts/edit/${post.id}`}>수정</PostUtilLink>
-                                        </PostUtilContainer>
-                                    </>
-                                )
-                            }
-                        </PostContainer>
-                    ))
+                    posts && filteringPosts(posts)
                 }
             </PostListContainer>
         </>

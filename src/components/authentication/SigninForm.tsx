@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 import { AuthContext } from "context/AuthContext";
 
 export default function SigninForm() {
