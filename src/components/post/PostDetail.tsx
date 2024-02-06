@@ -2,11 +2,12 @@ import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { PostDataType } from "types/postlist.type";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
 import { toast } from "react-toastify";
 import { PostTitle } from "../style/postlist.style";
 import MDEditor from "@uiw/react-md-editor";
+import { getPost } from "functions/post.function";
 
 export default function PostDetail() {
     const [post, setPost] = useState<PostDataType | null>(null);
@@ -16,20 +17,6 @@ export default function PostDetail() {
     // postDetail의 param은 post의 id
     const params = useParams();
     const navigate = useNavigate();
-
-    // id기반으로 서버로부터 데이터 얻어냅니다
-    async function getPost(id: string) {
-        if(id) {
-            const response = await fetch(`${BACK_URL}/post/${id}`, {
-                method: "GET",
-                headers: {
-                    "Authorization": authToken
-                }
-            });
-            const postData = await response.json();
-            setPost(postData);
-        }
-    }
 
     async function deletePost(id: number): Promise<void> {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
@@ -55,7 +42,9 @@ export default function PostDetail() {
     
     useEffect(() => {
         if(params?.id) {
-            getPost(params?.id);
+            getPost(params.id, authToken)
+                .then((data) => setPost(data))
+                .catch((error) => console.error(error));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

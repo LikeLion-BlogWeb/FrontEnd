@@ -3,20 +3,10 @@ import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, 
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 import { toast } from "react-toastify";
 import MDEditor from "@uiw/react-md-editor";
-
-function formatDate(date: Date) : string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-  
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-}
+import { formatDate, getPost } from "functions/post.function";
 
 /**
  * Edit: parameter가 id
@@ -109,41 +99,18 @@ export default function PostForm() {
         }
     }
 
-    const getPost: (id: string) => Promise<PostDataType> = async (id: string) => {
-            if(id) {
-                const response = await fetch(`${BACK_URL}/post/${id}`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": authToken
-                    }
-                });
-                const postData = await response.json();
-
-                return postData;
-            }
-    }
-
     useEffect(() => {
-        // params.id는 undefined | string -> string인 경우에만 진행
-        const fetchData = async () => {
-            if(params.id) {
-                try {
-                    // 우선 게시물을 가져올때까지 기다림
-                    const postData = await getPost(params.id);
-                    
-                    // 게시물 내용을 가져오면 그제서야 동기적으로 훅에 저장
-                    setPost(postData);
-                    setContent(postData.content);
-                    setTitle(postData.title);
-                } catch(error) {
-                    console.log("Error while fetching data: ", error)
-                }
-
-            }
+        if(params?.id) {
+            getPost(params.id, authToken)
+                .then((data) => {
+                    setPost(data);
+                    setContent(data.content);
+                    setTitle(data.title);
+                })
+                .catch((error) => console.error(error));
         }
-        fetchData();
         
-        // url의 id값이 변경될때 다시 호출
+    // url의 id값이 변경될때 다시 호출
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.id]);
 

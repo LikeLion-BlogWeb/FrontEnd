@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer, PostProfileWrapperLink, PostText, PostImageContainer, PostImage, PostBody, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilLink } from "../style/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 import { PostDataType } from "types/postlist.type";
 import { toast } from "react-toastify";
+import { getPostList } from "functions/post.function";
 
 export default function PostList({
     hasNavigation = true, 
@@ -42,24 +43,10 @@ export default function PostList({
 
     // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
-        const postData = async () => {
-            try {
-                // 응답값 : 포스트들 : 배열
-                const response = await fetch(`${BACK_URL}/post`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": authToken
-                    },
-                });
-                const data = await response.json();
-    
-                setPosts(data);
-            } catch(e) {
-                console.log(e);
-            }
-        }
+        getPostList(authToken)
+            .then((data) => setPosts(data))
+            .catch((error) => console.error(error));
 
-        postData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
