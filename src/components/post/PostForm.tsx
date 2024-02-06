@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton } from "../style/postform.style";
+import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton } from "../style/post/postform.style";
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";

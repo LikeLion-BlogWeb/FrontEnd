@@ -1,21 +1,19 @@
 import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { PostDataType } from "types/postlist.type";
 import { BACK_URL } from "../../util";
-import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
+import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/post/postdetail.style";
 import { toast } from "react-toastify";
-import { PostTitle } from "../style/postlist.style";
+import { PostTitle } from "../style/post/postlist.style";
 import MDEditor from "@uiw/react-md-editor";
 import { getPost } from "functions/post.function";
 
-export default function PostDetail() {
+export default function PostDetail({id}: {id: string}) {
     const [post, setPost] = useState<PostDataType | null>(null);
     // context api에서의 value는 authToken, setAuthToken 두가지가 있음
-    // 객체구조분해를 통해 authToken만 변수로 꺼내와서 사용
+    // 객체구조분해를 통해 변수로 꺼내와서 사용
     const { authToken, userEmail } = useContext(AuthContext);
-    // postDetail의 param은 post의 id
-    const params = useParams();
     const navigate = useNavigate();
 
     async function deletePost(id: number): Promise<void> {
@@ -41,13 +39,17 @@ export default function PostDetail() {
     }
     
     useEffect(() => {
-        if(params?.id) {
-            getPost(params.id, authToken)
+        if(id) {
+            getPost(id, authToken)
                 .then((data) => setPost(data))
                 .catch((error) => console.error(error));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    if(!id) {
+        return <h1>ID값을 전달받지 못했습니다.</h1>
+    }
 
     return (
         <>
@@ -73,7 +75,7 @@ export default function PostDetail() {
                                         post?.email === userEmail && (
                                             <div style={{display: "flex", gap: "7px"}}>
                                                 <PostEdit>
-                                                    <PostEditLink to={`/posts/edit/${params?.id}`}>수정</PostEditLink>
+                                                    <PostEditLink to={`/posts/edit/${id}`}>수정</PostEditLink>
                                                 </PostEdit>
                                                 <br />
                                                 <PostDelete role="presentation" onClick={() => deletePost(post?.id)}>삭제</PostDelete>

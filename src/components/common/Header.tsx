@@ -1,4 +1,4 @@
-import { HeaderLink, HeaderLoginLink, HeaderLogoLink, StyledHeader } from "../style/header.style";
+import { HeaderLink, HeaderLoginLink, HeaderLogoLink, StyledHeader } from "../style/common/header.style";
 
 export default function Header({
     linkTextDisplay = false

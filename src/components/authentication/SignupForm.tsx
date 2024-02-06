@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style"
+import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/authentication/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../util";

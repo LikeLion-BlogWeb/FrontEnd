@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ProfileContainer, ProfileEmail, ProfileFlexWrapper, ProfileImage, ProfileLogoutDiv, ProfileName } from "../style/profile.style";
+import { ProfileContainer, ProfileEmail, ProfileFlexWrapper, ProfileImage, ProfileLogoutDiv, ProfileName } from "../style/authentication/profile.style";
 import { AuthContext } from "context/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";

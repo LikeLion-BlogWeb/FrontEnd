@@ -1,4 +1,4 @@
-import { FooterCopyRightDiv, StyleFooter } from "../style/footer.style";
+import { FooterCopyRightDiv, StyleFooter } from "../style/common/footer.style";
 
 export default function Footer() {
     return (
