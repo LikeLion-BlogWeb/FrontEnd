@@ -1,21 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton, PostFormTextarea } from "../style/postform.style";
+import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton } from "../style/postform.style";
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../url";
+import { BACK_URL } from "../../util";
 import { toast } from "react-toastify";
-
-function formatDate(date: Date) : string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-  
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-}
+import MDEditor from "@uiw/react-md-editor";
+import { formatDate, getPost } from "functions/post.function";
 
 /**
  * Edit: parameter가 id
@@ -44,9 +35,6 @@ export default function PostForm() {
                 break;
             case "category":
                 // 나중에 카테고리 영역이 생기면 추후에 더 작업할 것
-                break;
-            case "content":
-                setContent(value);
                 break;
             default:
                 break;
@@ -111,41 +99,18 @@ export default function PostForm() {
         }
     }
 
-    const getPost: (id: string) => Promise<PostDataType> = async (id: string) => {
-            if(id) {
-                const response = await fetch(`${BACK_URL}/post/${id}`, {
-                    method: "GET",
-                    headers: {
-                        "Authorization": authToken
-                    }
-                });
-                const postData = await response.json();
-
-                return postData;
-            }
-    }
-
     useEffect(() => {
-        // params.id는 undefined | string -> string인 경우에만 진행
-        const fetchData = async () => {
-            if(params.id) {
-                try {
-                    // 우선 게시물을 가져올때까지 기다림
-                    const postData = await getPost(params.id);
-                    
-                    // 게시물 내용을 가져오면 그제서야 동기적으로 훅에 저장
-                    setPost(postData);
-                    setContent(postData.content);
-                    setTitle(postData.title);
-                } catch(error) {
-                    console.log("Error while fetching data: ", error)
-                }
-
-            }
+        if(params?.id) {
+            getPost(params.id, authToken)
+                .then((data) => {
+                    setPost(data);
+                    setContent(data.content);
+                    setTitle(data.title);
+                })
+                .catch((error) => console.error(error));
         }
-        fetchData();
         
-        // url의 id값이 변경될때 다시 호출
+    // url의 id값이 변경될때 다시 호출
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.id]);
 
@@ -184,15 +149,10 @@ export default function PostForm() {
             </PostFormInputWrapper>
 
             <PostFormInputWrapper>
-                <PostFormLabel htmlFor="content">내용</PostFormLabel>
-                <PostFormTextarea 
-                    name="content"
-                    id="content"
-                    required
-                    // 사용자 input으로 들어온 컨텐츠 or 불러온 게시물 수정의 기존 내용
-                    value={content}
-                    onChange={onChange}
-                />
+                <h4 style={{display: "block", fontWeight: "500", marginBottom: "10px", marginTop:"20px"}}>내용</h4>
+                <div id="markdown-area" className="markdown-area">
+                    <MDEditor value={content} onChange={setContent} />
+                </div>
             </PostFormInputWrapper>
 
             <PostFormInputWrapper>

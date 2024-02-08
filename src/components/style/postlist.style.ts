@@ -35,7 +35,8 @@ export const PostListContainer = styled.div`
     text-align: left;
     line-height: 20px;
     display: grid;
-    place-items: center;
+    /* align, justify */
+    place-items: start center;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 36px;
 `;

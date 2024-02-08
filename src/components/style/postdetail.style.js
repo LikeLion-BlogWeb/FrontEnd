@@ -6,7 +6,7 @@ export const PostDetailContainer = styled.div`
     padding: 20px;
     /* text 가로 기준 왼쪽 정렬 */
     text-align: left;
-    max-width: 680px;
+    max-width: 1100px;
     /* 가로 중앙 정렬 */
     margin: 0 auto;
     line-height: 24px;
