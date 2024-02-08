@@ -1,4 +1,4 @@
-import { Comment } from "components/Comment"
+import { Comment } from "components/comment/Comment"
 import Footer from "components/common/Footer"
 import Header from "components/common/Header"
 import PostDetail from "components/post/PostDetail"
