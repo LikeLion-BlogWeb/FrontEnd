@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CommentContainer, CommentSubmitButton, CommentTextarea } from "../style/comment/comment.style"
 import { BACK_URL } from "../../util";
 import { AuthContext } from "context/AuthContext";
 import { formatDate } from "functions/post.function";
 import { toast } from "react-toastify";
 
-export const Comment = ({id} : {id: string}) => {
+export default function Comment({ id } : { id: string }) {
     const [textareaConetent, setTextareaContent] = useState<string>("");
     const [comments, setComments] = useState<string[]>([]);
     // 객체구조분해를 통해 변수로 꺼내와서 사용
@@ -33,6 +33,8 @@ export const Comment = ({id} : {id: string}) => {
 
             if(response.ok) {
                 toast.success("댓글을 생성하였습니다.");
+                // 재렌더링 trigger
+                setComments(prevComments => [...prevComments, textareaConetent]);
             } else {
                 // HTTP 통신은 성공했지만, 응답값이 오류인 경우(4XX)
                 toast.error("댓글 업로드에 실패했습니다.");
@@ -45,6 +47,10 @@ export const Comment = ({id} : {id: string}) => {
         // 전송됐다고 생각하고 작성 내용 날리기
         setTextareaContent("");
     }
+
+    useEffect(() => {
+        
+    }, []);
 
     if(!id) {
         return <h1>ID값을 전달받지 못했습니다.</h1>
