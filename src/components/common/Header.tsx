@@ -18,9 +18,9 @@ export default function Header({
                 LikeLion🦁
             </HeaderLogoLink>
             <div>
-                <HeaderLink to="/posts/new" displayattr={linkTextDisplay ? "true" : "false"}>글쓰기</HeaderLink>
-                <HeaderLink to="/posts" displayattr={linkTextDisplay ? "true" : "false"}>게시물</HeaderLink>
-                <HeaderLink to="/profile" displayattr={linkTextDisplay ? "true" : "false"}>프로필</HeaderLink>
+                <HeaderLink to="/posts/new" displayattr={linkTextDisplay || isAuthenticated ? "true" : "false"}>글쓰기</HeaderLink>
+                <HeaderLink to="/posts" displayattr={linkTextDisplay || isAuthenticated ? "true" : "false"}>게시물</HeaderLink>
+                <HeaderLink to="/profile" displayattr={linkTextDisplay || isAuthenticated ? "true" : "false"}>프로필</HeaderLink>
                 <HeaderLoginLink to="/signin" displayattr={isAuthenticated ? "true" : "false"}>로그인</HeaderLoginLink>
                 {/* 로그인 했을 때 login 버튼이 보이지 않도록 수정 필요 */}
             </div>
