@@ -1,4 +1,4 @@
-import { Comment } from "components/comment/Comment"
+import Comment from "components/comment/Comment"
 import Footer from "components/common/Footer"
 import Header from "components/common/Header"
 import PostDetail from "components/post/PostDetail"
@@ -10,7 +10,7 @@ export default function Detail() {
 
     return (
         <>
-            <Header linkTextDisplay={true} />
+            <Header />
             <PostDetail id={params.id || ""}/>
             <Comment id={params.id || ""}/>
             <Footer />

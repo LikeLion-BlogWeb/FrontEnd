@@ -30,16 +30,3 @@ export const HeaderLink = styled(Link)<HeaderLinkProps>`
         color: orange;
     }
 `;
-export const HeaderLoginLink = styled(Link)<HeaderLinkProps>`
-    text-decoration: none;
-    margin: 0 10px;
-    color: black;
-    border-radius: 10%;
-
-    display: ${props => props.displayattr==="true" ? "none" : "inline-block"};
-
-    &:focus, &:hover {
-        background-color: orange;
-        color: white;
-    }
-`;

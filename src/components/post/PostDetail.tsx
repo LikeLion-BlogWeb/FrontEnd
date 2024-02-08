@@ -11,8 +11,7 @@ import { getPost } from "functions/post.function";
 
 export default function PostDetail({id}: {id: string}) {
     const [post, setPost] = useState<PostDataType | null>(null);
-    // context api에서의 value는 authToken, setAuthToken 두가지가 있음
-    // 객체구조분해를 통해 변수로 꺼내와서 사용
+    // context api에서의 value는 authToken, setAuthToken 두가지가 있음 : 객체구조분해를 통해 변수로 꺼내와서 사용
     const { authToken, userEmail } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -38,6 +37,7 @@ export default function PostDetail({id}: {id: string}) {
         }
     }
     
+    // 마운트 시점에 한 번만 : id가 존재하면 -> post데이터와를 들고와서, state에 넣어줍니다.
     useEffect(() => {
         if(id) {
             getPost(id, authToken)
@@ -91,7 +91,6 @@ export default function PostDetail({id}: {id: string}) {
                                         }}/>
                                     </PostTextWrapper>
                                 </PostUtilsWrapper>
-                                {/* 댓글 기능? */}
                             </PostDetailWrapper>
                         </>
                     )

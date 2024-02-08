@@ -5,7 +5,7 @@ import SigninForm from "../../components/authentication/SigninForm"
 export default function Signin() {
     return (
         <>
-            <Header linkTextDisplay={false}/>
+            <Header />
             <SigninForm />
             <Footer />
         </>
