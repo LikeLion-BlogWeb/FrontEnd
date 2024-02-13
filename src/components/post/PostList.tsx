@@ -6,6 +6,7 @@ import { BACK_URL } from "../../util";
 import { PostDataType } from "types/postlist.type";
 import { toast } from "react-toastify";
 import { getPostList } from "functions/post.function";
+import More from "components/common/More";
 
 export default function PostList({
     hasNavigation = true, 
@@ -115,6 +116,7 @@ export default function PostList({
                     posts && filteringPosts(posts)
                 }
             </Styled.PostListContainer>
+            <More />
         </>
     )
 }
