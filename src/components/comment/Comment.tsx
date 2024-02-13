@@ -108,7 +108,7 @@ export default function Comment({ id } : { id: string }) {
 
                         return (
                             <>
-                                <CommentBox key={commentData.id} data={commentData}/>
+                                <CommentBox data={commentData}/>
                             </>
                         )
                     })

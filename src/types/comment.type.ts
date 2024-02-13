@@ -12,3 +12,8 @@ export interface POSTCommentProps {
     writeDate: string;
     email: string;
 }
+
+export interface FormatDateProps {
+    dateOrTime: string;
+    indexForMap: number;
+}
