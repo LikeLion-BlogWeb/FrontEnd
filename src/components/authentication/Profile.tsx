@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ProfileContainer, ProfileEmail, ProfileFlexWrapper, ProfileImage, ProfileLogoutDiv, ProfileName } from "../style/authentication/profile.style";
+import * as Styled from "../style/authentication/profile.style";
 import { AuthContext } from "context/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -23,16 +23,16 @@ export default function Profile() {
 
     return (
         <>
-            <ProfileContainer>
-                <ProfileFlexWrapper>
-                    <ProfileImage />
+            <Styled.ProfileContainer>
+                <Styled.ProfileFlexWrapper>
+                    <Styled.ProfileImage />
                     <div>
-                        <ProfileName>유저</ProfileName>
-                        <ProfileEmail>{userEmail}</ProfileEmail>
+                        <Styled.ProfileName>유저</Styled.ProfileName>
+                        <Styled.ProfileEmail>{userEmail}</Styled.ProfileEmail>
                     </div>
-                </ProfileFlexWrapper>
-                <ProfileLogoutDiv role="presentation" onClick={handleSignOut}>로그아웃</ProfileLogoutDiv>
-            </ProfileContainer>
+                </Styled.ProfileFlexWrapper>
+                <Styled.ProfileLogoutDiv role="presentation" onClick={handleSignOut}>로그아웃</Styled.ProfileLogoutDiv>
+            </Styled.ProfileContainer>
         </> 
     )
 }

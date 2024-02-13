@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { PostFormContainer, PostFormInput, PostFormInputWrapper, PostFormLabel, PostFormSelect, PostFormSubmitButton } from "../style/post/postform.style";
+import * as Styled from "../style/post/postform.style";
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
@@ -115,10 +115,10 @@ export default function PostForm() {
     }, [params.id]);
 
     return (
-        <PostFormContainer onSubmit={onSubmit}>
-            <PostFormInputWrapper>
-                <PostFormLabel htmlFor="title">제목</PostFormLabel>
-                <PostFormInput 
+        <Styled.PostFormContainer onSubmit={onSubmit}>
+            <Styled.PostFormInputWrapper>
+                <Styled.PostFormLabel htmlFor="title">제목</Styled.PostFormLabel>
+                <Styled.PostFormInput 
                     type="text"
                     name="title"
                     id="title"
@@ -129,11 +129,11 @@ export default function PostForm() {
                         width: "250px"
                     }}
                 />
-            </PostFormInputWrapper>
+            </Styled.PostFormInputWrapper>
 
-            <PostFormInputWrapper>
-                <PostFormLabel htmlFor="category">카테고리</PostFormLabel>
-                <PostFormSelect
+            <Styled.PostFormInputWrapper>
+                <Styled.PostFormLabel htmlFor="category">카테고리</Styled.PostFormLabel>
+                <Styled.PostFormSelect
                     name="category"
                     id="category"
                     required
@@ -145,23 +145,23 @@ export default function PostForm() {
                         // 나중에 카테고리 영역이 생기면 바꿀 것
                         <option value={category}>{category}</option>
                     }
-                </PostFormSelect>
-            </PostFormInputWrapper>
+                </Styled.PostFormSelect>
+            </Styled.PostFormInputWrapper>
 
-            <PostFormInputWrapper>
+            <Styled.PostFormInputWrapper>
                 <h4 style={{display: "block", fontWeight: "500", marginBottom: "10px", marginTop:"20px"}}>내용</h4>
                 <div id="markdown-area" className="markdown-area">
                     <MDEditor value={content} onChange={setContent} />
                 </div>
-            </PostFormInputWrapper>
+            </Styled.PostFormInputWrapper>
 
-            <PostFormInputWrapper>
-                <PostFormSubmitButton 
+            <Styled.PostFormInputWrapper>
+                <Styled.PostFormSubmitButton 
                     type="submit"
                     // 수정하려고 들어온 경우엔 버튼의 value값을 "수정"으로 -> ui에 표현
                     value={post ? "수정" : "제출"}
                 />
-            </PostFormInputWrapper>
-        </PostFormContainer>
+            </Styled.PostFormInputWrapper>
+        </Styled.PostFormContainer>
     )
 }

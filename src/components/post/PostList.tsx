@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PostContainer, PostEtc, PostListContainer, PostNav, PostNavContainer, PostProfile, PostProfileContainer, PostProfileWrapperLink, PostText, PostImageContainer, PostImage, PostBody, PostTitle, PostUtilContainer, PostUtilDelete, PostUtilLink } from "../style/post/postlist.style";
+import * as Styled from "../style/post/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import { BACK_URL } from "../../util";
@@ -44,40 +44,40 @@ export default function PostList({
     function filteringPosts(posts: PostDataType[]) {
         const template = (post: PostDataType) => 
         <>
-            <PostContainer>
-                <PostProfileWrapperLink to={`/posts/${post.id}`}>
-                    <PostProfileContainer>
-                        <PostProfile />
+            <Styled.PostContainer>
+                <Styled.PostProfileWrapperLink to={`/posts/${post.id}`}>
+                    <Styled.PostProfileContainer>
+                        <Styled.PostProfile />
                         {/* 글 작성자 이름 & 작성 시간 */}
-                        <PostEtc>이시영</PostEtc>
+                        <Styled.PostEtc>이시영</Styled.PostEtc>
                         {/* 작성날짜 데이터 포맷 수정해서 UI에 표현 */}
-                        <PostEtc>{`${post.writeDate.slice(0,10).replace(/-/g, '.')}`}</PostEtc>
-                    </PostProfileContainer>
-                    <PostImageContainer>
-                        <PostImage />
-                    </PostImageContainer>
-                    <PostBody>
-                        <PostTitle>
+                        <Styled.PostEtc>{`${post.writeDate.slice(0,10).replace(/-/g, '.')}`}</Styled.PostEtc>
+                    </Styled.PostProfileContainer>
+                    <Styled.PostImageContainer>
+                        <Styled.PostImage />
+                    </Styled.PostImageContainer>
+                    <Styled.PostBody>
+                        <Styled.PostTitle>
                             {`${post.title}`}
-                        </PostTitle>
-                        <PostText>
+                        </Styled.PostTitle>
+                        <Styled.PostText>
                             {/* 너무 길면 잘라냅니다 */}
                             {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,48).concat("...")}
-                        </PostText>  
-                    </PostBody>
-                </PostProfileWrapperLink>
+                        </Styled.PostText>  
+                    </Styled.PostBody>
+                </Styled.PostProfileWrapperLink>
                 {
                     userEmail === post.email && (
                         <>
-                            <PostUtilContainer>
-                                <PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</PostUtilDelete>
+                            <Styled.PostUtilContainer>
+                                <Styled.PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</Styled.PostUtilDelete>
                                 <br />
-                                <PostUtilLink to={`/posts/edit/${post.id}`}>수정</PostUtilLink>
-                            </PostUtilContainer>
+                                <Styled.PostUtilLink to={`/posts/edit/${post.id}`}>수정</Styled.PostUtilLink>
+                            </Styled.PostUtilContainer>
                         </>
                     )
                 }
-            </PostContainer>
+            </Styled.PostContainer>
         </>
 
         // 모든 글 vs 내 글
@@ -98,23 +98,23 @@ export default function PostList({
             {/* 내 글인지, 모두에게 보여지는 글인지 상태에 따라 결정 */}
             {
                 hasNavigation && (
-                    <PostNavContainer>
-                        <PostNav
+                    <Styled.PostNavContainer>
+                        <Styled.PostNav
                             onClick={()=>setActiveTab("all")}
                             $active={activeTab === 'all' ? 'active' : ''}
-                        >전체</PostNav>
-                        <PostNav
+                        >전체</Styled.PostNav>
+                        <Styled.PostNav
                             onClick={()=>setActiveTab("my")}
                             $active={activeTab === 'my' ? 'active' : ''}
-                        >내 글</PostNav>
-                    </PostNavContainer>
+                        >내 글</Styled.PostNav>
+                    </Styled.PostNavContainer>
                 )
             }
-            <PostListContainer>
+            <Styled.PostListContainer>
                 {
                     posts && filteringPosts(posts)
                 }
-            </PostListContainer>
+            </Styled.PostListContainer>
         </>
     )
 }

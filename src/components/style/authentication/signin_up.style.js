@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledForm = styled.form`
+export const AuthenticationForm = styled.form`
     margin-top: 10vh;
     min-height: 70vh;
     margin: 0 auto;
@@ -20,7 +20,7 @@ export const FormInnerWrapper = styled.div`
     width: 100%;
 `
 
-export const StyledLabel = styled.label`
+export const AuthenticationLabel = styled.label`
     display: block;
     font-weight: 600;
     margin-bottom: 10px;
@@ -42,7 +42,7 @@ export const ErrorMsgContainer = styled.div`
     font-weight: 600;
 `
 
-export const StyledLink = styled(Link)`
+export const ToLoginORRegisterLink = styled(Link)`
     margin-left: 10px;
     text-decoration: none;
     color: black;

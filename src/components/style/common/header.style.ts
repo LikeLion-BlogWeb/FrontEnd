@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledHeader = styled.header`
+export const Header = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: center;

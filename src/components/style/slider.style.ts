@@ -38,7 +38,7 @@ export const OneSlideImgContainer = styled.div`
     transition: all 0.5s ease-in-out;
 `;
 
-export const StyledImg = styled.img`
+export const SlideImg = styled.img`
     width: auto;
     min-width: 100%;
     height: 100%;

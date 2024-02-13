@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { CommentContainer, CommentSubmitButton, CommentTextarea } from "../style/comment/comment.style"
+import * as Styled from "../style/comment/comment.style"
 import { BACK_URL } from "../../util";
 import { AuthContext } from "context/AuthContext";
 import { formatDate } from "functions/post.function";
@@ -94,14 +94,14 @@ export default function Comment({ id } : { id: string }) {
 
     return (
         <>
-            <CommentContainer>
+            <Styled.CommentContainer>
                 <h3>{comments.length}개의 댓글</h3>
-                <CommentTextarea id="comment" name="comment" onChange={handleChange} value={textareaConetent} placeholder="댓글을 작성해보세요!"></CommentTextarea>
+                <Styled.CommentTextarea id="comment" name="comment" onChange={handleChange} value={textareaConetent} placeholder="댓글을 작성해보세요!"></Styled.CommentTextarea>
                 <div style={{
                     display: "flex",
                     justifyContent: "flex-end"
                 }}>
-                    <CommentSubmitButton onClick={handleSubmit}>댓글 작성</CommentSubmitButton>          
+                    <Styled.CommentSubmitButton onClick={handleSubmit}>댓글 작성</Styled.CommentSubmitButton>          
                 </div> 
                 {
                     comments.map((commentData: GETCommentByIDProps) => {
@@ -113,7 +113,7 @@ export default function Comment({ id } : { id: string }) {
                         )
                     })
                 }    
-            </CommentContainer>
+            </Styled.CommentContainer>
         </>
     )
 }
