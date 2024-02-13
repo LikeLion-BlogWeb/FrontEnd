@@ -10,7 +10,9 @@ export const CommentEtcWrapper = styled.div`
     width: 100%;
     /* 내부 요소 가로 정렬 */
     display: flex;
-    justify-content: flex-start;
+    /* 양끝으로 배치 */
+    justify-content: space-between;
+    /* 수직기준 맨 위로 배치 */
     align-items: flex-start;
     margin-bottom: 20px;
 `

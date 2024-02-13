@@ -95,7 +95,7 @@ export default function Comment({ id } : { id: string }) {
     return (
         <>
             <CommentContainer>
-                <h3>99개의 댓글</h3>
+                <h3>{comments.length}개의 댓글</h3>
                 <CommentTextarea id="comment" name="comment" onChange={handleChange} value={textareaConetent} placeholder="댓글을 작성해보세요!"></CommentTextarea>
                 <div style={{
                     display: "flex",
