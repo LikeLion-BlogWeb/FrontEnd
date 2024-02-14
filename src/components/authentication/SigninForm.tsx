@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { ErrorMsgContainer, FormInnerWrapper, LoginAndRegisterTitle, LoginInput, LoginSubmitButton, StyledForm, StyledLabel, StyledLink } from "../style/signin_up.style";
+import * as Styled from "../style/authentication/signin_up.style";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../util";
@@ -80,11 +80,11 @@ export default function SigninForm() {
 
     return (
         <>
-            <StyledForm onSubmit={onSubmit}>
-                <LoginAndRegisterTitle>로그인</LoginAndRegisterTitle>
-                <FormInnerWrapper>
-                    <StyledLabel htmlFor="email">이메일</StyledLabel>
-                    <LoginInput 
+            <Styled.AuthenticationForm onSubmit={onSubmit}>
+                <Styled.LoginAndRegisterTitle>로그인</Styled.LoginAndRegisterTitle>
+                <Styled.FormInnerWrapper>
+                    <Styled.AuthenticationLabel htmlFor="email">이메일</Styled.AuthenticationLabel>
+                    <Styled.LoginInput 
                         type="email"
                         id="email"
                         name="email"
@@ -93,10 +93,10 @@ export default function SigninForm() {
                         onChange={onChange}
                         autoComplete="off"
                     />
-                </FormInnerWrapper>
-                <FormInnerWrapper>
-                    <StyledLabel htmlFor="password">비밀번호</StyledLabel>
-                    <LoginInput 
+                </Styled.FormInnerWrapper>
+                <Styled.FormInnerWrapper>
+                    <Styled.AuthenticationLabel htmlFor="password">비밀번호</Styled.AuthenticationLabel>
+                    <Styled.LoginInput 
                         type="password"
                         id="password"
                         name="password"
@@ -105,28 +105,28 @@ export default function SigninForm() {
                         onChange={onChange}
                         autoComplete="off"
                     />
-                </FormInnerWrapper>
+                </Styled.FormInnerWrapper>
                 {
                     error && error.length > 0 && (
-                        <FormInnerWrapper>
-                            <ErrorMsgContainer>{error}</ErrorMsgContainer>
-                        </FormInnerWrapper>
+                        <Styled.FormInnerWrapper>
+                            <Styled.ErrorMsgContainer>{error}</Styled.ErrorMsgContainer>
+                        </Styled.FormInnerWrapper>
                     )
                 }
-                <FormInnerWrapper>
+                <Styled.FormInnerWrapper>
                     계정이 없으신가요?
-                    <StyledLink to="/signup">
+                    <Styled.ToLoginORRegisterLink to="/signup">
                         회원가입하기
-                    </StyledLink>
-                </FormInnerWrapper>
-                <FormInnerWrapper>
-                    <LoginSubmitButton 
+                    </Styled.ToLoginORRegisterLink>
+                </Styled.FormInnerWrapper>
+                <Styled.FormInnerWrapper>
+                    <Styled.LoginSubmitButton 
                         type="submit"
                         value="로그인"
                         disabled={error?.length > 0}
-                    >로그인</LoginSubmitButton>
-                </FormInnerWrapper>
-            </StyledForm>
+                    >로그인</Styled.LoginSubmitButton>
+                </Styled.FormInnerWrapper>
+            </Styled.AuthenticationForm>
         </>
     )
 }

@@ -1,21 +1,18 @@
 import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { PostDataType } from "types/postlist.type";
 import { BACK_URL } from "../../util";
-import { PostAuthorName, PostCategory, PostDate, PostDelete, PostDetailContainer, PostDetailWrapper, PostEdit, PostEditLink, PostProfile, PostProfileWrapper, PostTextWrapper, PostUtilsWrapper } from "../style/postdetail.style";
+import * as Styled from "../style/post/postdetail.style";
 import { toast } from "react-toastify";
-import { PostTitle } from "../style/postlist.style";
+import { PostTitle } from "../style/post/postlist.style";
 import MDEditor from "@uiw/react-md-editor";
 import { getPost } from "functions/post.function";
 
-export default function PostDetail() {
+export default function PostDetail({id}: {id: string}) {
     const [post, setPost] = useState<PostDataType | null>(null);
-    // context api에서의 value는 authToken, setAuthToken 두가지가 있음
-    // 객체구조분해를 통해 authToken만 변수로 꺼내와서 사용
+    // context api에서의 value는 authToken, setAuthToken 두가지가 있음 : 객체구조분해를 통해 변수로 꺼내와서 사용
     const { authToken, userEmail } = useContext(AuthContext);
-    // postDetail의 param은 post의 id
-    const params = useParams();
     const navigate = useNavigate();
 
     async function deletePost(id: number): Promise<void> {
@@ -40,61 +37,65 @@ export default function PostDetail() {
         }
     }
     
+    // 마운트 시점에 한 번만 : id가 존재하면 -> post데이터와를 들고와서, state에 넣어줍니다.
     useEffect(() => {
-        if(params?.id) {
-            getPost(params.id, authToken)
+        if(id) {
+            getPost(id, authToken)
                 .then((data) => setPost(data))
                 .catch((error) => console.error(error));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    if(!id) {
+        return <h1>ID값을 전달받지 못했습니다.</h1>
+    }
+
     return (
         <>
-            <PostDetailContainer>
+            <Styled.PostDetailContainer>
                 {
                     post && (
                         <>
-                            <PostDetailWrapper>
+                            <Styled.PostDetailWrapper>
                                 <PostTitle>{post?.title}</PostTitle>
-                                <PostProfileWrapper>
-                                    <PostProfile />
-                                    <PostAuthorName>{post?.email}</PostAuthorName>
+                                <Styled.PostProfileWrapper>
+                                    <Styled.PostProfile />
+                                    <Styled.PostAuthorName>{post?.email}</Styled.PostAuthorName>
                                     {/* ex) 2023-11-02T00:57:24 */}
-                                    <PostDate>{post?.writeDate.split('T').join(' ')}</PostDate>
-                                </PostProfileWrapper>
-                                <PostUtilsWrapper>
-                                    <PostCategory>
+                                    <Styled.PostDate>{post?.writeDate.split('T').join(' ')}</Styled.PostDate>
+                                </Styled.PostProfileWrapper>
+                                <Styled.PostUtilsWrapper>
+                                    <Styled.PostCategory>
                                         {/* 추후에 추가될 수 있는 부분 */}
                                         자유주제
-                                    </PostCategory>
+                                    </Styled.PostCategory>
                                     {/* 작성자 이메일과 동일하면 삭제 아이콘도 뜨도록 설정 */}
                                     {   
                                         post?.email === userEmail && (
                                             <div style={{display: "flex", gap: "7px"}}>
-                                                <PostEdit>
-                                                    <PostEditLink to={`/posts/edit/${params?.id}`}>수정</PostEditLink>
-                                                </PostEdit>
+                                                <Styled.PostEdit>
+                                                    <Styled.PostEditLink to={`/posts/edit/${id}`}>수정</Styled.PostEditLink>
+                                                </Styled.PostEdit>
                                                 <br />
-                                                <PostDelete role="presentation" onClick={() => deletePost(post?.id)}>삭제</PostDelete>
+                                                <Styled.PostDelete role="presentation" onClick={() => deletePost(post?.id)}>삭제</Styled.PostDelete>
                                             </div>
                                         ) 
                                     }
-                                    <PostTextWrapper>
+                                    <Styled.PostTextWrapper>
                                         <MDEditor.Markdown source={post?.content} style={{
                                             padding: "20px 20px 20px 0",
                                             borderRadius: "5px",
                                             backgroundColor: "white",
                                             color: "black",
                                         }}/>
-                                    </PostTextWrapper>
-                                </PostUtilsWrapper>
-                                {/* 댓글 기능? */}
-                            </PostDetailWrapper>
+                                    </Styled.PostTextWrapper>
+                                </Styled.PostUtilsWrapper>
+                            </Styled.PostDetailWrapper>
                         </>
                     )
                 }
-            </PostDetailContainer>
+            </Styled.PostDetailContainer>
         </>
     )
 }

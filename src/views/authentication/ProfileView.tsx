@@ -7,7 +7,7 @@ export default function ProfileView() {
 
     return (
         <>
-            <Header linkTextDisplay={true} />
+            <Header />
             <Profile />
             <PostList />
             <Footer />

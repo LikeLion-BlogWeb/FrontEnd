@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CenterLayoutDiv } from "../layout.style";
 
-export const PostDetailContainer = styled.div`
-    min-height: 90vh;
-    padding: 20px;
+export const PostDetailContainer = styled(CenterLayoutDiv)`
     /* text 가로 기준 왼쪽 정렬 */
     text-align: left;
-    max-width: 1100px;
-    /* 가로 중앙 정렬 */
-    margin: 0 auto;
     line-height: 24px;
 `
 

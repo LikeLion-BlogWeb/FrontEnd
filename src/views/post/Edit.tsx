@@ -4,7 +4,7 @@ import PostForm from "components/post/PostForm";
 export default function Edit() {
     return (
         <>
-            <Header linkTextDisplay={true} />
+            <Header />
             <PostForm />
         </>
     )
