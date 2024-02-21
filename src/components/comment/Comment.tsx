@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import * as Styled from "../style/comment/comment.style"
-import { BACK_URL } from "../../util";
+import { BACK_URL } from "../../constant/util";
 import { AuthContext } from "context/AuthContext";
 import { formatDate } from "functions/post.function";
 import { toast } from "react-toastify";
@@ -108,7 +108,7 @@ export default function Comment({ id } : { id: string }) {
 
                         return (
                             <>
-                                <CommentBox data={commentData}/>
+                                <CommentBox data={commentData} setter={setComments} key={commentData.id}/>
                             </>
                         )
                     })

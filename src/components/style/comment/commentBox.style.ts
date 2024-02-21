@@ -1,31 +1,45 @@
 import styled from "styled-components";
 
+const CommonLightFontDiv = styled.div`
+    color: black;
+    font-weight: lighter;
+    font-size: 0.8rem;
+`
+
 export const CommentBoxWrapper = styled.div`
     width: 100%;
-    /* 위 수평 아래*/
-    padding: 0px 10px 20px;
+    padding: 10px 0 10px;
 `
 
 export const CommentEtcWrapper = styled.div`
     width: 100%;
-    /* 내부 요소 가로 정렬 */
-    display: flex;
-    /* 양끝으로 배치 */
-    justify-content: space-between;
-    /* 수직기준 맨 위로 배치 */
-    align-items: flex-start;
     margin-bottom: 20px;
 `
 
-export const CommentEtcDiv = styled.div`
-    color: black;
-    font-weight: lighter;
-    font-size: 0.8rem;
-    margin-right: 20px;
+export const CommentEtcDiv = styled(CommonLightFontDiv)`
+`
+
+export const ModifyDivContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
 `
 
 export const CommentContentSpan = styled.span`
     color: black;
     font-weight: bold;
     font-size: 1rem;
+`
+
+export const ModifyDivWrapper = styled.div`
+    /* 자식 태그들 flex layout */
+    display: flex;
+`
+
+export const ModifyDeleteDiv = styled(CommonLightFontDiv)`
+    cursor: pointer;
+
+    &:hover {
+        color: orange;
+        font-weight: normal;
+    }
 `
