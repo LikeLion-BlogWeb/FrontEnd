@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import * as Styled from "../style/post/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../util";
+import { BACK_URL } from "../../constant/util";
 import { PostDataType } from "types/postlist.type";
 import { toast } from "react-toastify";
 import { getPostList } from "functions/post.function";
@@ -59,23 +59,17 @@ export default function PostList({
                     </Styled.PostImageContainer>
                     <Styled.PostBody>
                         <Styled.PostTitle>
-                            {`${post.title}`}
+                            {`${post.title}`.length > 10 ? `${post.title}`.slice(0,10).concat("...") : `${post.title}`}
                         </Styled.PostTitle>
                         <Styled.PostText>
                             {/* 너무 길면 잘라냅니다 */}
-                            {`${post.content}`.length < 50 ? post.content : `${post.content}`.slice(0,48).concat("...")}
+                            {`${post.content}`.length < 12 ? post.content : `${post.content}`.slice(0,12).concat("...")}
                         </Styled.PostText>  
                     </Styled.PostBody>
                 </Styled.PostProfileWrapperLink>
                 {
                     userEmail === post.email && (
-                        <>
-                            <Styled.PostUtilContainer>
-                                <Styled.PostUtilDelete onClick={() => deletePost(post.id, post)}>삭제</Styled.PostUtilDelete>
-                                <br />
-                                <Styled.PostUtilLink to={`/posts/edit/${post.id}`}>수정</Styled.PostUtilLink>
-                            </Styled.PostUtilContainer>
-                        </>
+                        <More post={post} deleteFn={deletePost} />
                     )
                 }
             </Styled.PostContainer>
@@ -87,10 +81,16 @@ export default function PostList({
 
     // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
-        getPostList(authToken)
-            .then((data) => setPosts(data))
-            .catch((error) => console.error(error));
+        const fetchData = async () => {
+            try {
+                const data = await getPostList(authToken);
+                setPosts(data);
+            } catch(error) {
+                console.error(error);
+            }
+        }
 
+        fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -116,7 +116,6 @@ export default function PostList({
                     posts && filteringPosts(posts)
                 }
             </Styled.PostListContainer>
-            <More />
         </>
     )
 }

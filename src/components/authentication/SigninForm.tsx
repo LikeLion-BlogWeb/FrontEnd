@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import * as Styled from "../style/authentication/signin_up.style";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../util";
+import { BACK_URL } from "../../constant/util";
 import { AuthContext } from "context/AuthContext";
 
 export default function SigninForm() {
@@ -48,7 +48,7 @@ export default function SigninForm() {
       
       try {
         // 서버로부터의 응답
-        const response = await fetch(`${BACK_URL}/auth/signin`.replace("kmu-likelion-blog.netlify.app/", ""), {
+        const response = await fetch(`${BACK_URL}/auth/signin`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

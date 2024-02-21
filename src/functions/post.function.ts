@@ -1,5 +1,5 @@
 import { PostDataType } from "types/postlist.type";
-import { BACK_URL } from "../util";
+import { BACK_URL } from "../constant/util";
 
 export function formatDate(date: Date) : string {
     const year = date.getFullYear();

@@ -2,7 +2,7 @@ import { AuthContext } from "context/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import { PostDataType } from "types/postlist.type";
-import { BACK_URL } from "../../util";
+import { BACK_URL } from "../../constant/util";
 import * as Styled from "../style/post/postdetail.style";
 import { toast } from "react-toastify";
 import { PostTitle } from "../style/post/postlist.style";

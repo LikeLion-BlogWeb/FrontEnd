@@ -2,7 +2,7 @@ import { useState } from "react"
 import * as Styled from "../style/authentication/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../util";
+import { BACK_URL } from "../../constant/util";
 
 export default function SignupForm() {
     const [email, setEmail] = useState<string>("")
@@ -61,7 +61,7 @@ export default function SignupForm() {
         
         // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
         try {
-            const response = await fetch(`${BACK_URL}/auth/signup`.replace("kmu-likelion-blog.netlify.app/", ""), {
+            const response = await fetch(`${BACK_URL}/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -3,7 +3,7 @@ import * as Styled from "../style/post/postform.style";
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../util";
+import { BACK_URL } from "../../constant/util";
 import { toast } from "react-toastify";
 import MDEditor from "@uiw/react-md-editor";
 import { formatDate, getPost } from "functions/post.function";
