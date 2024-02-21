@@ -1,12 +1,38 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const MoreContainer = styled.div`
+export const Container = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: end;
     align-items: center;
-    justify-content: space-between;
+    padding-right: 16px;
+`
+
+export const EllipsisButton = styled.button`
+    border: none;
+    outline: none;
+    padding: 0;
+    background-color: #fff;
+    font-size: 1.3rem;
+
+    &:hover {
+        cursor: pointer;
+        color: gray;
+    }
+`
+interface MenuItemListContainerProps {
+    $displayList: boolean;
+}
+export const MenuItemListContainer = styled.div<MenuItemListContainerProps>`
+    /* More컴포넌트의 Container(div) 기준으로 위치를 잡습니다. */
     position: absolute;
-    top: 500px;
-    left: 10px;
+    right: 5px;
+    bottom: 25px;
+    border: 1px solid whitesmoke;
     border-radius: 10px;
+    display: ${props => props.$displayList === true ? "block" : "none"};
+    z-index: 99;
 `
 
 interface MenuItemContainerProps {
@@ -28,4 +54,8 @@ export const MenuItemContainer = styled.div<MenuItemContainerProps>`
     &:hover, &focus {
         background-color: #f3f3f3;
     }
+`
+
+export const FixLink = styled(Link)`
+    text-decoration: none;
 `

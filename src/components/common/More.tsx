@@ -1,35 +1,65 @@
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Styled from "components/style/common/more.style";
-import { MoreComponentIconItems } from "constant";
+import { MoreComponentIconItems } from "constant/constant";
 
-/**
- * 삭제, 수정 버튼을 담고있는 컴포넌트 : 항상 ... 모양처리 내부에 담아주세요(absolute)
- * @param {null}
- * @returns jsx
- */
-export default function More() {
+import { useState } from "react";
+import { PostDataType } from "types/postlist.type";
 
-    return (
-        <>
-            <Styled.MoreContainer className="more-container">
-                {
-                    MoreComponentIconItems.map((object) => (
-                        <MenuItem key={object.key} iconName={object.iconName} itemName={object.itemName} fontColor={object.fontColor} />
-                    ))
-                }
-            </Styled.MoreContainer>
-        </>
-    )
+interface MoreProps {
+    post: PostDataType;
+    deleteFn: (id: number, post: PostDataType) => Promise<void>
 }
 
-const MenuItem = ({ iconName, itemName, fontColor } : { iconName: IconDefinition, itemName: string, fontColor: string }) => {
+export default function More({ post, deleteFn } : MoreProps) {
+    const [displayList, setDisplayList] = useState<boolean>(false);
+
+    const handleToggle = (e: any) => {
+        setDisplayList(!displayList);
+    }
+
     return (
         <>
-            <Styled.MenuItemContainer role="menuitem" $fontcolor={fontColor}>
-                <FontAwesomeIcon icon={iconName} />
-                {itemName}
-            </Styled.MenuItemContainer>
+            <Styled.Container>
+                <Styled.EllipsisButton onClick={handleToggle}>
+                    <span>
+                        <FontAwesomeIcon icon={faEllipsis} />
+                    </span>
+                </Styled.EllipsisButton>
+                <Styled.MenuItemListContainer $displayList={displayList}>
+                    {
+                        MoreComponentIconItems.map((object) => {
+
+                            if(object.itemName === "삭제") {
+                                return (
+                                    <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor} onClick={() => deleteFn(post.id, post)}>
+                                        <FontAwesomeIcon icon={object.iconName} />
+                                        {object.itemName}
+                                    </Styled.MenuItemContainer>
+                                )
+                            }
+
+                            if(object.itemName === "수정") {
+                                return (
+                                    <Styled.FixLink to={`/posts/edit/${post.id}`}>
+                                        <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor}>
+                                            <FontAwesomeIcon icon={object.iconName} />
+                                            {object.itemName}
+                                        </Styled.MenuItemContainer>
+                                    </Styled.FixLink>
+                                )
+                            }  
+
+                            return (
+                                <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor}>
+                                    <FontAwesomeIcon icon={object.iconName} />
+                                    {object.itemName}
+                                </Styled.MenuItemContainer>
+                            )
+                        })
+                    }
+                </Styled.MenuItemListContainer>
+            </Styled.Container>
         </>
     )
 }
