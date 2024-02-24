@@ -32,7 +32,7 @@ export default function More({ post, deleteFn } : MoreProps) {
 
                             if(object.itemName === "삭제") {
                                 return (
-                                    <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor} onClick={() => deleteFn(post.id, post)}>
+                                    <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor} onClick={() => deleteFn(post.id, post)} key={object.key}>
                                         <FontAwesomeIcon icon={object.iconName} />
                                         {object.itemName}
                                     </Styled.MenuItemContainer>
@@ -42,7 +42,7 @@ export default function More({ post, deleteFn } : MoreProps) {
                             if(object.itemName === "수정") {
                                 return (
                                     <Styled.FixLink to={`/posts/edit/${post.id}`}>
-                                        <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor}>
+                                        <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor} key={object.key}>
                                             <FontAwesomeIcon icon={object.iconName} />
                                             {object.itemName}
                                         </Styled.MenuItemContainer>
@@ -51,7 +51,7 @@ export default function More({ post, deleteFn } : MoreProps) {
                             }  
 
                             return (
-                                <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor}>
+                                <Styled.MenuItemContainer role="menuitem" $fontcolor={object.fontColor} key={object.key}>
                                     <FontAwesomeIcon icon={object.iconName} />
                                     {object.itemName}
                                 </Styled.MenuItemContainer>

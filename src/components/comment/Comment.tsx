@@ -107,9 +107,7 @@ export default function Comment({ id } : { id: string }) {
                     comments.map((commentData: GETCommentByIDProps) => {
 
                         return (
-                            <>
-                                <CommentBox data={commentData} setter={setComments} key={commentData.id}/>
-                            </>
+                            <CommentBox data={commentData} setter={setComments} key={commentData.id}/>
                         )
                     })
                 }    

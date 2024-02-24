@@ -7,6 +7,7 @@ export interface PostDataType {
     writeDate: string;
     like: number[];
     views: number;
+    category: string;
 }
 
 export interface PostListProps {

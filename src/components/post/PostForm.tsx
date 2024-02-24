@@ -22,7 +22,7 @@ export default function PostForm() {
     const [title, setTitle] = useState<string>("");
     // 콘텐츠(메인 글)는 사용자가 많이 입력하므로, 객체로 묶어서 관리하기보다는 별도의 상태들로 쪼개서 관리
     const [content, setContent] = useState<any>("");
-    const [category] = useState<string>("프론트엔드");
+    const [category] = useState<string[]>(["프론트엔드", "벡엔드", "Devops", "자료구조", "알고리즘"]);
     const { authToken, userEmail } = useContext(AuthContext);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -137,13 +137,16 @@ export default function PostForm() {
                     name="category"
                     id="category"
                     required
-                    defaultValue={category}
+                    defaultValue={category[0]}
                     onChange={onChange}
                 >
                     <option value="">카테고리를 선택</option>
                     {
-                        // 나중에 카테고리 영역이 생기면 바꿀 것
-                        <option value={category}>{category}</option>
+                        category.map((categoryName) => {
+                            return (
+                                <option value={categoryName}>{categoryName}</option>
+                            )
+                        })
                     }
                 </Styled.PostFormSelect>
             </Styled.PostFormInputWrapper>

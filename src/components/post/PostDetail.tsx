@@ -66,10 +66,11 @@ export default function PostDetail({id}: {id: string}) {
                                     <Styled.PostDate>{post?.writeDate.split('T').join(' ')}</Styled.PostDate>
                                 </Styled.PostProfileWrapper>
                                 <Styled.PostUtilsWrapper>
-                                    <Styled.PostCategory>
-                                        {/* 추후에 추가될 수 있는 부분 */}
-                                        자유주제
-                                    </Styled.PostCategory>
+                                    {
+                                        post.category && (
+                                            <Styled.PostCategory>{post.category}</Styled.PostCategory>
+                                        )
+                                    }
                                     {/* 작성자 이메일과 동일하면 삭제 아이콘도 뜨도록 설정 */}
                                     {   
                                         post?.email === userEmail && (
