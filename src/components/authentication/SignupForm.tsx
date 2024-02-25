@@ -3,6 +3,7 @@ import * as Styled from "../style/authentication/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../constant/util";
+import { SubmitDataType } from "types/authentication/signup.type";
 
 export default function SignupForm() {
     const [email, setEmail] = useState<string>("");
@@ -69,6 +70,12 @@ export default function SignupForm() {
     // 제출버튼 눌렀을때 동작하는 함수
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const SENDING_DATA: SubmitDataType = {
+            email: email,
+            password: password,
+            name: name,
+        };
         
         // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
         try {
@@ -77,11 +84,7 @@ export default function SignupForm() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                    name: name
-                })
+                body: JSON.stringify(SENDING_DATA),
             });
             const data = await response.json();
             

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../constant/util";
 import { AuthContext } from "context/AuthContext";
+import { ResponseDataType, SubmitDataType } from "types/authentication/signin.type";
 
 export default function SigninForm() {
     const navigate = useNavigate();
@@ -46,6 +47,11 @@ export default function SigninForm() {
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       
+      const SENDING_DATA: SubmitDataType = {
+        email: formEmail,
+        password: password,
+      }
+
       try {
         // 서버로부터의 응답
         const response = await fetch(`${BACK_URL}/auth/signin`, {
@@ -53,21 +59,18 @@ export default function SigninForm() {
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({
-            email: formEmail,
-            password: password,
-          })
+          body: JSON.stringify(SENDING_DATA),
         });
         
         // 서버로부터 응답받은 내용을 json화한 데이터
-        const data = await response.json();
+        const data: ResponseDataType = await response.json();
 
-        if(data?.token) {
+        if(data.token) {
             toast.success("로그인에 성공했습니다");
             // 유저의 토큰과 이메일을 전역상태 관리에 올리기
-            setAuthToken(data?.token);
-            setEmail(data?.email);
-            setName(data?.name);
+            setAuthToken(data.token);
+            setEmail(data.email);
+            setName(data.name);
             // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
             navigate("/");
         } else {

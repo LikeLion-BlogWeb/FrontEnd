@@ -1,10 +1,8 @@
 interface SharedCommentProps {
     content: string;
     postId: number;
-    user: {
-        email: string;
-        name: string;
-    }
+    email: string;
+    name: string;
 }
 
 export interface GETCommentByIDProps extends SharedCommentProps{

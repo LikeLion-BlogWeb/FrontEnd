@@ -14,7 +14,7 @@ export const CommentBox = ({ data, setter } : {data: GETCommentByIDProps, setter
 
         // 사용자가 삭제를 결정하고, 게시물이 존재하면 삭제 프로세스 시작
         if(checkConfirmBeforeDelete && data.id) {
-            const response = await fetch(`${BACK_URL}/post/${data.id}`, {
+            const response = await fetch(`${BACK_URL}/comment/${data.id}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": authToken
@@ -34,7 +34,7 @@ export const CommentBox = ({ data, setter } : {data: GETCommentByIDProps, setter
         <>
             <Styled.CommentBoxWrapper>
                 <Styled.CommentEtcWrapper>
-                    <Styled.CommentEtcDiv className="user-name">{data.user.name}</Styled.CommentEtcDiv>
+                    <Styled.CommentEtcDiv className="user-name">{data.name}</Styled.CommentEtcDiv>
                     <div className="writeDate-wrapper">
                         {
                             formatDate(data.writeDate).map((object: FormatDateProps) => (
@@ -46,7 +46,7 @@ export const CommentBox = ({ data, setter } : {data: GETCommentByIDProps, setter
                 <Styled.ModifyDivContainer>
                     <Styled.CommentContentSpan>{data.content}</Styled.CommentContentSpan>
                     {
-                        email === data.user.email ? (
+                        email === data.email ? (
                             <Styled.ModifyDeleteDiv onClick={deleteComment}>삭제</Styled.ModifyDeleteDiv>
                         ) : null
                     }

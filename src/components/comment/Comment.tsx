@@ -22,10 +22,8 @@ export default function Comment({ id } : { id: string }) {
             content: textareaConetent,
             postId: Number(id),
             writeDate: formatDate(new Date()),
-            user: {
-                email: email,
-                name: name
-            }
+            email: email,
+            name: name,
         }   
 
         if(!authToken) {
