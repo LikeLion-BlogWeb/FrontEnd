@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { BACK_URL } from "../../constant/util";
 
 export default function SignupForm() {
-    const [email, setEmail] = useState<string>("")
+    const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
     const [error, setError] = useState<string>("");
@@ -25,6 +26,16 @@ export default function SignupForm() {
 
             if (!value?.match(validRegex)) {
                 setError("이메일 형식이 올바르지 않습니다.");
+            } else {
+                setError("");
+            }
+        }
+
+        if(name === "name") {
+            setName(value);
+            
+            if(value?.length < 2) {
+                setError("이름을 올바르게 작성해주세요");
             } else {
                 setError("");
             }
@@ -69,6 +80,7 @@ export default function SignupForm() {
                 body: JSON.stringify({
                     email: email,
                     password: password,
+                    name: name
                 })
             });
             const data = await response.json();
@@ -98,6 +110,18 @@ export default function SignupForm() {
                         id="email"
                         name="email"
                         value={email}
+                        onChange={onChange}
+                        autoComplete="off"
+                    />
+                </Styled.FormInnerWrapper>
+
+                <Styled.FormInnerWrapper>
+                    <Styled.AuthenticationLabel htmlFor="password_confirm">이름</Styled.AuthenticationLabel>
+                    <Styled.LoginInput 
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
                         onChange={onChange}
                         autoComplete="off"
                     />

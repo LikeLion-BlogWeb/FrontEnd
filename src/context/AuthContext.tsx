@@ -1,30 +1,40 @@
 import { useState, createContext } from "react"
-import { UserAuthProps } from "../types/user.context"
-
-
-interface authContextValue {
-    authToken: string;
-    setAuthToken: any;
-    userEmail: string;
-    setUserEmail: any;
-}
+import { AuthContextValue, UserAuthProps } from "../types/user.context"
 
 // 초기값 설정
-export const AuthContext = createContext<authContextValue>({
-    authToken: "",
-    setAuthToken: "",
-    userEmail: "",
-    setUserEmail: "",
+export const AuthContext = createContext<AuthContextValue>({
+    token: {
+        authToken: "",
+        setAuthToken: () => {},
+    },
+    user: {
+        email: "",
+        setEmail: () => {},
+        name: "",
+        setName: ()=>{},
+    }
 });
 
 // 상태관리
 export function AuthContextProvider({children}: UserAuthProps) {
-    const [authToken, setAuthToken] = useState<any>("");
-    const [userEmail, setUserEmail] = useState("");
+    const [token, setToken] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>("");
 
     return (
         <>
-            <AuthContext.Provider value={{authToken, setAuthToken, userEmail, setUserEmail}}>
+            <AuthContext.Provider value={{ 
+                token: {
+                    authToken: token,
+                    setAuthToken: setToken,
+                },
+                user: {
+                    email: email,
+                    setEmail: setEmail,
+                    name: name,
+                    setName: setName,
+                }
+            }}>
                 { children }
             </AuthContext.Provider>
         </>

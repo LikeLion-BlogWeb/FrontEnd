@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { FormatDateProps, GETCommentByIDProps } from "types/comment.type"
 
 export const CommentBox = ({ data, setter } : {data: GETCommentByIDProps, setter: React.Dispatch<React.SetStateAction<GETCommentByIDProps[]>>}) => {
-    const { authToken, userEmail } = useContext(AuthContext);
+    const { token: { authToken }, user: { email } } = useContext(AuthContext);
 
     async function deleteComment(): Promise<void> {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
@@ -34,7 +34,7 @@ export const CommentBox = ({ data, setter } : {data: GETCommentByIDProps, setter
         <>
             <Styled.CommentBoxWrapper>
                 <Styled.CommentEtcWrapper>
-                    <Styled.CommentEtcDiv className="user-email">{data.email}</Styled.CommentEtcDiv>
+                    <Styled.CommentEtcDiv className="user-name">{data.user.name}</Styled.CommentEtcDiv>
                     <div className="writeDate-wrapper">
                         {
                             formatDate(data.writeDate).map((object: FormatDateProps) => (
@@ -46,7 +46,7 @@ export const CommentBox = ({ data, setter } : {data: GETCommentByIDProps, setter
                 <Styled.ModifyDivContainer>
                     <Styled.CommentContentSpan>{data.content}</Styled.CommentContentSpan>
                     {
-                        userEmail === data.email ? (
+                        email === data.user.email ? (
                             <Styled.ModifyDeleteDiv onClick={deleteComment}>삭제</Styled.ModifyDeleteDiv>
                         ) : null
                     }

@@ -7,10 +7,10 @@ import { AuthContext } from "context/AuthContext";
 
 export default function SigninForm() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState<string>("");
+    const [formEmail, setFormEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
-    const { setAuthToken, setUserEmail } = useContext(AuthContext);
+    const { token: { setAuthToken }, user: { setEmail, setName } } = useContext(AuthContext);
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
       // deconstructing object
@@ -19,7 +19,7 @@ export default function SigninForm() {
         } = e;
     
         if (name === "email") {
-          setEmail(value);
+          setFormEmail(value);
 
           const validRegex =
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -54,7 +54,7 @@ export default function SigninForm() {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            email: email,
+            email: formEmail,
             password: password,
           })
         });
@@ -66,7 +66,8 @@ export default function SigninForm() {
             toast.success("로그인에 성공했습니다");
             // 유저의 토큰과 이메일을 전역상태 관리에 올리기
             setAuthToken(data?.token);
-            setUserEmail(data?.email);
+            setEmail(data?.email);
+            setName(data?.name);
             // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
             navigate("/");
         } else {
@@ -89,7 +90,7 @@ export default function SigninForm() {
                         id="email"
                         name="email"
                         required
-                        value={email}
+                        value={formEmail}
                         onChange={onChange}
                         autoComplete="off"
                     />

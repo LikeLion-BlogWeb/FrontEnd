@@ -11,8 +11,7 @@ import { getPost } from "functions/post.function";
 
 export default function PostDetail({id}: {id: string}) {
     const [post, setPost] = useState<PostDataType | null>(null);
-    // context api에서의 value는 authToken, setAuthToken 두가지가 있음 : 객체구조분해를 통해 변수로 꺼내와서 사용
-    const { authToken, userEmail } = useContext(AuthContext);
+    const { token: { authToken }, user: { email } } = useContext(AuthContext);
     const navigate = useNavigate();
 
     async function deletePost(id: number): Promise<void> {
@@ -61,7 +60,7 @@ export default function PostDetail({id}: {id: string}) {
                                 <PostTitle>{post?.title}</PostTitle>
                                 <Styled.PostProfileWrapper>
                                     <Styled.PostProfile />
-                                    <Styled.PostAuthorName>{post?.email}</Styled.PostAuthorName>
+                                    <Styled.PostAuthorName>{post?.user.name}</Styled.PostAuthorName>
                                     {/* ex) 2023-11-02T00:57:24 */}
                                     <Styled.PostDate>{post?.writeDate.split('T').join(' ')}</Styled.PostDate>
                                 </Styled.PostProfileWrapper>
@@ -73,7 +72,7 @@ export default function PostDetail({id}: {id: string}) {
                                     }
                                     {/* 작성자 이메일과 동일하면 삭제 아이콘도 뜨도록 설정 */}
                                     {   
-                                        post?.email === userEmail && (
+                                        post?.user.email === email && (
                                             <div style={{display: "flex", gap: "7px"}}>
                                                 <Styled.PostEdit>
                                                     <Styled.PostEditLink to={`/posts/edit/${id}`}>수정</Styled.PostEditLink>

@@ -11,7 +11,7 @@ export default function Comment({ id } : { id: string }) {
     const [textareaConetent, setTextareaContent] = useState<string>("");
     const [comments, setComments] = useState<GETCommentByIDProps[]>([]);
     // 객체구조분해를 통해 변수로 꺼내와서 사용
-    const { authToken, userEmail } = useContext(AuthContext);
+    const { token: { authToken }, user: { email, name } } = useContext(AuthContext);
 
     function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
         setTextareaContent(e.target.value);
@@ -20,9 +20,12 @@ export default function Comment({ id } : { id: string }) {
     async function handleSubmit() {
         const dataObjectToSend: POSTCommentProps | GETCommentByIDProps = {
             content: textareaConetent,
-            postId: id,
+            postId: Number(id),
             writeDate: formatDate(new Date()),
-            email: userEmail
+            user: {
+                email: email,
+                name: name
+            }
         }   
 
         if(!authToken) {

@@ -9,7 +9,7 @@ export default function useFetch({ url, method, bodyData } : InterfaceProps) {
     // 서버로부터 받아온 데이터를 반환하는 변수
     const [fetchResultData, setFetchResultData] = useState<any>(null);
     // 전역상태(context)로부터 토큰 정보를 가지고 옵니다 | 객체구조분해할당
-    const { authToken } = useContext(AuthContext);
+    const { token: { authToken } } = useContext(AuthContext);
 
     const GET: (url: string) => Promise<void> = async (url: string) => {
         try {

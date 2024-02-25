@@ -10,11 +10,11 @@ import More from "components/common/More";
 
 export default function PostList({
     hasNavigation = true, 
-    defaultTab = "all"}
-    ) {
+    defaultTab = "all"
+    }) {
     const [activeTab, setActiveTab] = useState(defaultTab);
     const [posts, setPosts] = useState<PostDataType[]>([]);
-    const { authToken, userEmail } = useContext(AuthContext);
+    const { token: { authToken }, user: { email } } = useContext(AuthContext);
 
     async function deletePost(id: number, post: PostDataType) {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
@@ -43,14 +43,13 @@ export default function PostList({
     }
 
     function filteringPosts(posts: PostDataType[]) {
-        const template = (post: PostDataType) => 
-        <>
+        const template = (post: PostDataType) => (
             <Styled.PostContainer>
                 <Styled.PostProfileWrapperLink to={`/posts/${post.id}`}>
                     <Styled.PostProfileContainer>
                         <Styled.PostProfile />
                         {/* 글 작성자 이름 & 작성 시간 */}
-                        <Styled.PostEtc>이시영</Styled.PostEtc>
+                        <Styled.PostEtc>{post.user.name}</Styled.PostEtc>
                         {/* 작성날짜 데이터 포맷 수정해서 UI에 표현 */}
                         <Styled.PostEtc>{`${post.writeDate.slice(0,10).replace(/-/g, '.')}`}</Styled.PostEtc>
                     </Styled.PostProfileContainer>
@@ -68,15 +67,15 @@ export default function PostList({
                     </Styled.PostBody>
                 </Styled.PostProfileWrapperLink>
                 {
-                    userEmail === post.email && (
-                        <More post={post} deleteFn={deletePost} />
+                    email === post.user.email && (
+                        <More post={post} deleteFn={deletePost} key={post.id}/>
                     )
                 }
             </Styled.PostContainer>
-        </>
+        )
 
         // 모든 글 vs 내 글
-        return activeTab === "all" ? posts.map(post => <div key={post.id}>{template(post)}</div>) : posts.filter(post => post.email === userEmail).map(post => <div key={post.id}>{template(post)}</div>);
+        return activeTab === "all" ? posts.map(post => <div key={post.id}>{template(post)}</div>) : posts.filter(post => post.user.email === email).map(post => <div key={post.id}>{template(post)}</div>);
     }
 
     // 첫 렌더링인 경우에만 실행하는 부분

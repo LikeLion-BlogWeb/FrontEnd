@@ -23,7 +23,8 @@ export default function PostForm() {
     // 콘텐츠(메인 글)는 사용자가 많이 입력하므로, 객체로 묶어서 관리하기보다는 별도의 상태들로 쪼개서 관리
     const [content, setContent] = useState<any>("");
     const [category] = useState<string[]>(["프론트엔드", "벡엔드", "Devops", "자료구조", "알고리즘"]);
-    const { authToken, userEmail } = useContext(AuthContext);
+    const { token: { authToken }, user: { email, name } } = useContext(AuthContext);
+    // const { authToken, userEmail } = useContext(AuthContext);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         // 중첩 객체구조분해
@@ -57,7 +58,8 @@ export default function PostForm() {
                         id: params.id,
                         title,
                         content,
-                        email: userEmail,   
+                        email: email,
+                        name: name,   
                         writeDate: formatDate(new Date()),
                         likes: post?.like,
                         views: post?.views
@@ -81,7 +83,8 @@ export default function PostForm() {
                     body: JSON.stringify({
                         title,
                         content,
-                        email: userEmail,
+                        email: email,
+                        name: name,
                         writeDate: formatDate(new Date())
                     })
                 });
