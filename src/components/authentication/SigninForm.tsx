@@ -2,16 +2,19 @@ import { useContext, useState } from "react"
 import * as Styled from "../style/authentication/signin_up.style";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../constant/util";
 import { AuthContext } from "context/AuthContext";
 import { ResponseDataType, SubmitDataType } from "types/authentication/signin.type";
+import useFetch from "hooks/useFetch";
+import Loader from "components/common/Loader";
 
 export default function SigninForm() {
     const navigate = useNavigate();
     const [formEmail, setFormEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
-    const { token: { setAuthToken }, user: { setEmail, setName } } = useContext(AuthContext);
+    const { user: { setEmail, setName }, token: { setAuthToken } } = useContext(AuthContext);
+    // custom hook
+    const { loading, fetchError, post } = useFetch()
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
       // deconstructing object
@@ -52,34 +55,27 @@ export default function SigninForm() {
         password: password,
       }
 
-      try {
-        // 서버로부터의 응답
-        const response = await fetch(`${BACK_URL}/auth/signin`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(SENDING_DATA),
-        });
-        
-        // 서버로부터 응답받은 내용을 json화한 데이터
-        const data: ResponseDataType = await response.json();
+      const data: ResponseDataType = await post("auth/signin", SENDING_DATA);
 
-        if(data.token) {
-            toast.success("로그인에 성공했습니다");
-            // 유저의 토큰과 이메일을 전역상태 관리에 올리기
-            setAuthToken(data.token);
-            setEmail(data.email);
-            setName(data.name);
-            // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
-            navigate("/");
-        } else {
-          toast.error("회원가입을 우선 해주세요!");
-        }
-      } catch(err: any) {
-        toast.error(err?.code);
-        console.log(err);
+      if(data.token) {
+          toast.success("로그인에 성공했습니다");
+          // 유저의 토큰과 이메일을 전역상태 관리에 올리기
+          setAuthToken(data.token);
+          setEmail(data.email);
+          setName(data.name);
+          // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
+          navigate("/");
+      } else {
+        toast.error("회원가입을 우선 해주세요!");
       }
+    }
+
+    if(loading) {
+      return <Loader />
+    }
+
+    if(fetchError) {
+      return <p>{fetchError}</p>
     }
 
     return (

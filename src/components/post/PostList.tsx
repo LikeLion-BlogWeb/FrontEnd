@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import * as Styled from "../style/post/postlist.style";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../constant/util";
 import { PostDataType } from "types/postlist.type";
 import { toast } from "react-toastify";
-import { getPostList } from "functions/post.function";
 import More from "components/common/More";
+import useFetch from "hooks/useFetch";
+import Loader from "components/common/Loader";
 
 export default function PostList({
     hasNavigation = true, 
@@ -14,30 +14,21 @@ export default function PostList({
     }) {
     const [activeTab, setActiveTab] = useState(defaultTab);
     const [posts, setPosts] = useState<PostDataType[]>([]);
-    const { token: { authToken }, user: { email } } = useContext(AuthContext);
+    const { user: { email } } = useContext(AuthContext);
+    const { loading, get, del } = useFetch();
 
     async function deletePost(id: number, post: PostDataType) {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
 
         // 사용자가 삭제를 결정하고, 게시물이 존재하면 삭제 프로세스 시작
         if(checkConfirmBeforeDelete && post && post.id) {
-            try {
-                const response = await fetch(`${BACK_URL}/post/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Authorization": authToken
-                    }
-                });
-
-                if(response.status === 200) {
-                    toast.success("게시글을 삭제 완료했습니다.");
-                    // 삭제되었음을 사용자가 확인하도록 post를 필터링해서 재렌더링
-                    setPosts([...posts].filter((p) => p.id !== post.id));
-                } else {
-                    toast.error("게시글 삭제를 실패했습니다.");
-                }
-            } catch(error) {
-                console.log("Error while delete post: ", error)
+            const deleteResult = await del(`post/${id}`);
+            if(deleteResult) {
+                toast.success("게시글을 삭제 완료했습니다.");
+                // 삭제되었음을 사용자가 확인하도록 post를 필터링해서 재렌더링
+                setPosts([...posts].filter((p) => p.id !== post.id));
+            } else {
+                toast.error("게시글 삭제를 실패했습니다.");
             }
         }
     }
@@ -80,18 +71,18 @@ export default function PostList({
 
     // 첫 렌더링인 경우에만 실행하는 부분
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getPostList(authToken);
-                setPosts(data);
-            } catch(error) {
-                console.error(error);
-            }
+        async function getPostList() {
+            const data:PostDataType[] = await get("post");
+            setPosts(data);
         }
-
-        fetchData();
+        
+        getPostList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    if(loading) {
+        return <Loader />
+    }
 
     return (
         <>

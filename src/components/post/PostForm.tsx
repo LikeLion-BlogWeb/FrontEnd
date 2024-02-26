@@ -3,10 +3,11 @@ import * as Styled from "../style/post/postform.style";
 import { PostDataType } from "types/postlist.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "context/AuthContext";
-import { BACK_URL } from "../../constant/util";
 import { toast } from "react-toastify";
 import MDEditor from "@uiw/react-md-editor";
-import { formatDate, getPost } from "functions/post.function";
+import { formatDate } from "functions/post.function";
+import useFetch from "hooks/useFetch";
+import Loader from "components/common/Loader";
 
 /**
  * Edit: parameter가 id
@@ -19,11 +20,12 @@ export default function PostForm() {
     const categoryTypes: string[] = ["프론트엔드", "벡엔드", "Devops", "자료구조", "알고리즘"];
 
     // 이전에 작성된 게시물인 경우는 post상태를 담아두고 수정하는 타이밍인지 새 글 작성인지 확인
-    const [post, setPost] = useState<PostDataType | null>(null);
+    const [posting, setPosting] = useState<PostDataType | null>(null);
     const [title, setTitle] = useState<string>("");
     const [content, setContent] = useState<any>("");
     const [category, setCategory] = useState<string>("");
-    const { token: { authToken }, user: { email, name } } = useContext(AuthContext);
+    const { user: { email } } = useContext(AuthContext);
+    const { loading, get, post, put } = useFetch();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         // 중첩 객체구조분해
@@ -44,78 +46,64 @@ export default function PostForm() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        try {   
-            if(post && post?.id) {
-                // 기존 게시물을 수정하는 경우의 내용 : PUT
-                const response = await fetch(`${BACK_URL}/post`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": authToken,
-                    },
-                    body: JSON.stringify({
-                        id: params.id,
-                        title,
-                        content,
-                        email,
-                        name: name,   
-                        writeDate: formatDate(new Date()),
-                        likes: post?.like,
-                        views: post?.views,
-                        category,
-                    })
-                });    
-                if(response.status === 200) {
-                    toast.success("게시물을 수정하였습니다.");
-                    // 메인 화면으로 다시 이동
-                    navigate("/");
-                } else {
-                    toast.error("게시물 수정을 실패하였습니다.");
-                }
+        if(posting && params.id) {
+            const data = await put("post", {
+                id: params.id,
+                title,
+                content,
+                email,
+                writeDate: formatDate(new Date()),
+                likes: posting?.like,
+                views: posting?.views,
+                category,
+            });
+
+            if(data) {
+                toast.success("게시물을 수정하였습니다.");
+                // 메인 화면으로 다시 이동
+                navigate("/");
             } else {
-                // 새로 게시물을 업로드하는 경우의 내용 : POST
-                const response = await fetch(`${BACK_URL}/post`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": authToken,
-                    },
-                    body: JSON.stringify({
-                        title,
-                        content,
-                        email,
-                        writeDate: formatDate(new Date()),
-                        category,
-                    })
-                });
-    
-                if(response.status === 201) {
-                    toast.success("게시물을 생성하였습니다.");
-                    // 메인 화면으로 다시 이동
-                    navigate("/");
-                } else {
-                    toast.error("게시물 업로드를 실패하였습니다.");
-                }
+                toast.error("게시물 수정을 실패하였습니다.");
             }
-        } catch(error) {
-            console.log(`submit에러: ${error}`);
+        } else {
+            const data = await post("post", {
+                title,
+                content,
+                email,
+                writeDate: formatDate(new Date()),
+                category,
+            });
+
+            if(data) {
+                toast.success("게시물을 생성하였습니다.");
+                // 메인 화면으로 다시 이동
+                navigate("/");
+            } else {
+                toast.error("게시물 업로드를 실패하였습니다.");
+            }
         }
     }
 
     useEffect(() => {
-        if(params?.id) {
-            getPost(params.id, authToken)
-                .then((data) => {
-                    setPost(data);
-                    setContent(data.content);
-                    setTitle(data.title);
-                })
-                .catch((error) => console.error(error));
+        async function getPost() {
+            if(params.id) {
+                const data:PostDataType = await get(`post/${params.id}`);
+                setPosting(data);
+                setContent(data.content);
+                setTitle(data.title);
+                setCategory(data.category);
+            }
         }
+
+        getPost();
         
     // url의 id값이 변경될때 다시 호출
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.id]);
+
+    if(loading) {
+        return <Loader />
+    }
 
     return (
         <Styled.PostFormContainer onSubmit={onSubmit}>
@@ -140,7 +128,7 @@ export default function PostForm() {
                     name="category"
                     id="category"
                     required
-                    defaultValue={""}
+                    defaultValue={category || ""}
                     onChange={onChange}
                 >
                     <option value="">카테고리를 선택</option>
@@ -165,7 +153,7 @@ export default function PostForm() {
                 <Styled.PostFormSubmitButton 
                     type="submit"
                     // 수정하려고 들어온 경우엔 버튼의 value값을 "수정"으로 -> ui에 표현
-                    value={post ? "수정" : "제출"}
+                    value={posting ? "수정" : "제출"}
                 />
             </Styled.PostFormInputWrapper>
         </Styled.PostFormContainer>

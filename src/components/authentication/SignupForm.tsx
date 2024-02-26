@@ -2,8 +2,9 @@ import { useState } from "react"
 import * as Styled from "../style/authentication/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../constant/util";
 import { SubmitDataType } from "types/authentication/signup.type";
+import useFetch from "hooks/useFetch";
+import Loader from "components/common/Loader";
 
 export default function SignupForm() {
     const [email, setEmail] = useState<string>("");
@@ -11,6 +12,8 @@ export default function SignupForm() {
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const { loading, fetchError, post } = useFetch();
+
     const navigate = useNavigate();
 
     // 사용자가 Input에 입력할때마다 적용되는 함수
@@ -76,30 +79,22 @@ export default function SignupForm() {
             password: password,
             name: name,
         };
-        
-        // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
-        try {
-            const response = await fetch(`${BACK_URL}/auth/signup`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(SENDING_DATA),
-            });
-            const data = await response.json();
-            
-            // 성공의 응답값으로 이메일이 있으면
-            if(data?.email) {
-                toast.success("회원가입에 성공했습니다.");
-                // 응답으로 넘어온 이메일이 존재하면 로그인 화면으로
-                navigate("/signin")
-            } else {
-                toast.error(data.email);
-            }
-        } catch(err: any) {
-            console.log(err);
-            toast.error(err?.code);
+
+        const data = await post("auth/signup", SENDING_DATA);
+
+        if(data) {
+            toast.success("회원가입에 성공했습니다.");
+            navigate("/signin")
+        } else {
+            toast.error(data.email);
         }
+    }
+
+    if(loading) {
+        return <Loader />
+    }
+    if(fetchError) {
+        return <p>{fetchError}</p>
     }
 
     return (
