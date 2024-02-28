@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from 'context/AuthContext';
 
 export default function Header() {
-    const { authToken } = useContext(AuthContext);
+    const { token: { authToken } } = useContext(AuthContext);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {

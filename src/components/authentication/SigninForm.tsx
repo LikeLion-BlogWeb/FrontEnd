@@ -2,15 +2,19 @@ import { useContext, useState } from "react"
 import * as Styled from "../style/authentication/signin_up.style";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../util";
 import { AuthContext } from "context/AuthContext";
+import { ResponseDataType, SubmitDataType } from "types/authentication/signin.type";
+import useFetch from "hooks/useFetch";
+import Loader from "components/common/Loader";
 
 export default function SigninForm() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState<string>("");
+    const [formEmail, setFormEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
-    const { setAuthToken, setUserEmail } = useContext(AuthContext);
+    const { user: { setEmail, setName }, token: { setAuthToken } } = useContext(AuthContext);
+    // custom hook
+    const { loading, fetchError, post } = useFetch()
 
     function onChange(e: React.ChangeEvent<HTMLInputElement>) {
       // deconstructing object
@@ -19,7 +23,7 @@ export default function SigninForm() {
         } = e;
     
         if (name === "email") {
-          setEmail(value);
+          setFormEmail(value);
 
           const validRegex =
             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -46,36 +50,32 @@ export default function SigninForm() {
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
       e.preventDefault();
       
-      try {
-        // 서버로부터의 응답
-        const response = await fetch(`${BACK_URL}/auth/signin`.replace("kmu-likelion-blog.netlify.app/", ""), {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          })
-        });
-        
-        // 서버로부터 응답받은 내용을 json화한 데이터
-        const data = await response.json();
-
-        if(data?.token) {
-            toast.success("로그인에 성공했습니다");
-            // 유저의 토큰과 이메일을 전역상태 관리에 올리기
-            setAuthToken(data?.token);
-            setUserEmail(data?.email);
-            // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
-            navigate("/");
-        } else {
-          toast.error("회원가입을 우선 해주세요!");
-        }
-      } catch(err: any) {
-        toast.error(err?.code);
-        console.log(err);
+      const SENDING_DATA: SubmitDataType = {
+        email: formEmail,
+        password: password,
       }
+
+      const data: ResponseDataType = await post("auth/signin", SENDING_DATA);
+
+      if(data.token) {
+          toast.success("로그인에 성공했습니다");
+          // 유저의 토큰과 이메일을 전역상태 관리에 올리기
+          setAuthToken(data.token);
+          setEmail(data.email);
+          setName(data.name);
+          // 응답으로 넘어온 토큰이 존재하면 context 상태관리에 토큰값 전달
+          navigate("/");
+      } else {
+        toast.error("회원가입을 우선 해주세요!");
+      }
+    }
+
+    if(loading) {
+      return <Loader />
+    }
+
+    if(fetchError) {
+      return <p>{fetchError}</p>
     }
 
     return (
@@ -89,7 +89,7 @@ export default function SigninForm() {
                         id="email"
                         name="email"
                         required
-                        value={email}
+                        value={formEmail}
                         onChange={onChange}
                         autoComplete="off"
                     />

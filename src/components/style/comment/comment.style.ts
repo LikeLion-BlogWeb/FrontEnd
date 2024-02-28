@@ -32,4 +32,8 @@ export const CommentSubmitButton = styled.button`
     &:hover, &:focus {
         background-color: orangered;
     }
+
+    &:disabled {
+        background-color: lightgray;
+    }
 `

@@ -2,13 +2,18 @@ import { useState } from "react"
 import * as Styled from "../style/authentication/signin_up.style"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { BACK_URL } from "../../util";
+import { SubmitDataType } from "types/authentication/signup.type";
+import useFetch from "hooks/useFetch";
+import Loader from "components/common/Loader";
 
 export default function SignupForm() {
-    const [email, setEmail] = useState<string>("")
+    const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [passwordConfirm, setPasswordConfirm] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const { loading, fetchError, post } = useFetch();
+
     const navigate = useNavigate();
 
     // 사용자가 Input에 입력할때마다 적용되는 함수
@@ -25,6 +30,16 @@ export default function SignupForm() {
 
             if (!value?.match(validRegex)) {
                 setError("이메일 형식이 올바르지 않습니다.");
+            } else {
+                setError("");
+            }
+        }
+
+        if(name === "name") {
+            setName(value);
+            
+            if(value?.length < 2) {
+                setError("이름을 올바르게 작성해주세요");
             } else {
                 setError("");
             }
@@ -58,33 +73,28 @@ export default function SignupForm() {
     // 제출버튼 눌렀을때 동작하는 함수
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
-        // 이메일과 패스워드 변수에 데이터 잘 들어가는 건 확인
-        try {
-            const response = await fetch(`${BACK_URL}/auth/signup`.replace("kmu-likelion-blog.netlify.app/", ""), {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                })
-            });
-            const data = await response.json();
-            
-            // 성공의 응답값으로 이메일이 있으면
-            if(data?.email) {
-                toast.success("회원가입에 성공했습니다.");
-                // 응답으로 넘어온 이메일이 존재하면 로그인 화면으로
-                navigate("/signin")
-            } else {
-                toast.error(data.email);
-            }
-        } catch(err: any) {
-            console.log(err);
-            toast.error(err?.code);
+
+        const SENDING_DATA: SubmitDataType = {
+            email: email,
+            password: password,
+            name: name,
+        };
+
+        const data = await post("auth/signup", SENDING_DATA);
+
+        if(data) {
+            toast.success("회원가입에 성공했습니다.");
+            navigate("/signin")
+        } else {
+            toast.error(data.email);
         }
+    }
+
+    if(loading) {
+        return <Loader />
+    }
+    if(fetchError) {
+        return <p>{fetchError}</p>
     }
 
     return (
@@ -98,6 +108,18 @@ export default function SignupForm() {
                         id="email"
                         name="email"
                         value={email}
+                        onChange={onChange}
+                        autoComplete="off"
+                    />
+                </Styled.FormInnerWrapper>
+
+                <Styled.FormInnerWrapper>
+                    <Styled.AuthenticationLabel htmlFor="password_confirm">이름</Styled.AuthenticationLabel>
+                    <Styled.LoginInput 
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
                         onChange={onChange}
                         autoComplete="off"
                     />

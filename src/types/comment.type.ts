@@ -1,16 +1,19 @@
-export interface GETCommentByIDProps {
-    id: number;
+interface SharedCommentProps {
     content: string;
-    writeDate: string;
-    email: string;
     postId: number;
+    user: {
+        email: string;
+        name: string;
+    }
 }
 
-export interface POSTCommentProps {
-    content: string;
-    postId: string;
+export interface GETCommentByIDProps extends SharedCommentProps{
+    id: number;
     writeDate: string;
-    email: string;
+}
+
+export interface POSTCommentProps extends SharedCommentProps{
+    writeDate: string;
 }
 
 export interface FormatDateProps {
