@@ -12,7 +12,7 @@ export default function Comment({ id } : { id: string }) {
     const [textareaConetent, setTextareaContent] = useState<string>("");
     const [comments, setComments] = useState<GETCommentByIDProps[]>([]);
     // 객체구조분해를 통해 변수로 꺼내와서 사용
-    const { token: { authToken }, user: { email, name } } = useContext(AuthContext);
+    const { user: { email, name } } = useContext(AuthContext);
     const { loading, post, get } = useFetch();
 
     function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -20,26 +20,29 @@ export default function Comment({ id } : { id: string }) {
     }
 
     async function handleSubmit() {
-        const SENDING_DATA: POSTCommentProps | GETCommentByIDProps = {
+        const SENDING_DATA: POSTCommentProps = {
             content: textareaConetent,
             postId: Number(id),
             writeDate: formatDate(new Date()),
-            user: {
-                email,
-                name,
-            }
+            email,
         }  
 
         const data = await post("comment", SENDING_DATA);
+        // 백엔드 api 구조가 좀 달라서 지워줘야합니다
+        delete SENDING_DATA.email;
+
         if(data) {
             toast.success("댓글을 생성하였습니다.");
             // 재렌더링 trigger
             setComments(prevComments => [
                 ...prevComments, 
                 {
-                    ...SENDING_DATA, 
-                    id: Number(id), 
-                    postId: Number(id)
+                    ...SENDING_DATA,
+                    user: {
+                        email: email,
+                        name: name,
+                    },
+                    id: Number(id),
                 }
             ]);
         } else {
@@ -76,7 +79,7 @@ export default function Comment({ id } : { id: string }) {
                     display: "flex",
                     justifyContent: "flex-end"
                 }}>
-                    <Styled.CommentSubmitButton onClick={handleSubmit} disabled={!authToken}>댓글 작성</Styled.CommentSubmitButton>          
+                    <Styled.CommentSubmitButton onClick={handleSubmit} disabled={!email}>댓글 작성</Styled.CommentSubmitButton>          
                 </div> 
                 {
                     comments.map((commentData: GETCommentByIDProps) => {
