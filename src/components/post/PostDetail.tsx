@@ -83,7 +83,7 @@ export default function PostDetail({id}: {id: string}) {
                                             </div>
                                         ) 
                                     }
-                                    <Styled.PostTextWrapper>
+                                    <Styled.PostTextWrapper data-color-mode="light">
                                         <MDEditor.Markdown source={post?.content} style={{
                                             padding: "20px 20px 20px 0",
                                             borderRadius: "5px",

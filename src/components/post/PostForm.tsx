@@ -144,7 +144,7 @@ export default function PostForm() {
 
             <Styled.PostFormInputWrapper>
                 <h4 style={{display: "block", fontWeight: "500", marginBottom: "10px", marginTop:"20px"}}>내용</h4>
-                <div id="markdown-area" className="markdown-area">
+                <div id="markdown-area" className="markdown-area" data-color-mode="light">
                     <MDEditor value={content} onChange={setContent} />
                 </div>
             </Styled.PostFormInputWrapper>
