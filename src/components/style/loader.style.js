@@ -9,7 +9,7 @@ export const StyledLoader = styled.div`
     top: 0;
     bottom: 0;
     margin: auto;
-    border: 5px solid #2563eb;
+    border: 5px solid orange;
     border-radius: 50%;
     z-index: 999;
     animation: rotation 1s linear infinite;

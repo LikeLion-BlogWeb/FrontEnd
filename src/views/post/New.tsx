@@ -6,7 +6,7 @@ export default function New() {
 
     return (
         <>
-            <Header linkTextDisplay={true} />
+            <Header />
             <PostForm />
             <Footer />
         </>

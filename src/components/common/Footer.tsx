@@ -1,9 +1,9 @@
-import { FooterCopyRightDiv, StyleFooter } from "../style/footer.style";
+import * as Styled from "../style/common/footer.style";
 
 export default function Footer() {
     return (
-        <StyleFooter>
-            <FooterCopyRightDiv>&copy; 11th Keimyung Univ LikeLion. All rights reserved. | Designed by Lee</FooterCopyRightDiv>
-        </StyleFooter>
-    )
+        <Styled.Footer>
+            <Styled.FooterCopyRightDiv>&copy; 11th Keimyung Univ LikeLion. All rights reserved. | Designed by Lee</Styled.FooterCopyRightDiv>
+        </Styled.Footer>
+    );
 }
