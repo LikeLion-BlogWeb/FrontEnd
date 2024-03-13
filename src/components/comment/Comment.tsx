@@ -8,7 +8,6 @@ import { GETCommentByIDProps, POSTCommentProps } from "types/comment.type";
 import useFetch from "hooks/useFetch";
 import Loader from "components/common/Loader";
 
-
 export default function Comment({ id } : { id: string }) {
     const [textareaConetent, setTextareaContent] = useState<string>("");
     const [comments, setComments] = useState<GETCommentByIDProps[]>([]);
