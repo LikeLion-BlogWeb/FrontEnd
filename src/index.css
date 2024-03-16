@@ -33,9 +33,9 @@ input:checked + .one-slide-container .slide-controls label {
   display: block;
 }
 
+input#img-0:checked ~ .slide_dots label#img-dot-0,
 input#img-1:checked ~ .slide_dots label#img-dot-1,
-input#img-2:checked ~ .slide_dots label#img-dot-2,
-input#img-3:checked ~ .slide_dots label#img-dot-3 {
+input#img-2:checked ~ .slide_dots label#img-dot-2 {
   opacity: 1;
 }
 
