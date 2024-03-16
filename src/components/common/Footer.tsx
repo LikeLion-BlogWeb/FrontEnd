@@ -5,5 +5,5 @@ export default function Footer() {
         <Styled.Footer>
             <Styled.FooterCopyRightDiv>&copy; 11th Keimyung Univ LikeLion. All rights reserved. | Designed by Lee</Styled.FooterCopyRightDiv>
         </Styled.Footer>
-    )
+    );
 }

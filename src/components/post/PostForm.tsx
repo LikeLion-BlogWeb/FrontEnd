@@ -8,6 +8,7 @@ import MDEditor from "@uiw/react-md-editor";
 import { formatDate } from "functions/post.function";
 import useFetch from "hooks/useFetch";
 import Loader from "components/common/Loader";
+import { useTheme } from "functions/theme.function";
 
 /**
  * Edit: parameter가 id
@@ -26,6 +27,7 @@ export default function PostForm() {
     const [category, setCategory] = useState<string>("");
     const { user: { email } } = useContext(AuthContext);
     const { loading, get, post, put } = useFetch();
+    const [themeMode] = useTheme();
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         // 중첩 객체구조분해
@@ -142,8 +144,9 @@ export default function PostForm() {
                 </Styled.PostFormSelect>
             </Styled.PostFormInputWrapper>
 
-            <Styled.PostFormInputWrapper>
+            <Styled.PostFormInputWrapper data-color-mode={themeMode}>
                 <h4 style={{display: "block", fontWeight: "500", marginBottom: "10px", marginTop:"20px"}}>내용</h4>
+                {/* 여기 data-color-mode부분 민주님 다크(라이트)모드 훅 이용해서 바꿔야함 */}
                 <div id="markdown-area" className="markdown-area" data-color-mode="light">
                     <MDEditor value={content} onChange={setContent} />
                 </div>

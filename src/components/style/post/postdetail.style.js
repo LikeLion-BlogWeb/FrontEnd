@@ -19,6 +19,7 @@ export const PostTitle = styled.div`
     font-weight: 600;
     /* 세로 가로 */
     margin: 14px 0px;
+    color: ${({ theme }) => theme.text};
 `
 
 export const PostProfileWrapper = styled.div`
@@ -46,19 +47,19 @@ export const PostUtilsWrapper = styled.div`
     color: gray;
 `
 export const PostCategory = styled.div`
-    color: gray;
     font-size: 12px;
-    border: 1px solid lightgray;
+    border: 1px solid ${({ theme }) => theme.bordercolor};;
     border-radius: 10px;
-    background-color: #f2f2f2;
     padding: 0px 4px;
-    /* 부모 너비 갖지 않도로 설정 */
+    /* 부모 너비 갖지 않도록 설정 */
     width: fit-content;
+    background: ${({ theme }) => theme.buttonarea};
+    color: ${({ theme }) => theme.text};
 `
 
 export const PostDelete = styled.div`
     cursor: pointer;
-    color: black;
+    color: ${({ theme }) => theme.text};
 
     &:hover, &:focus {
         color: orange;
@@ -70,7 +71,7 @@ export const PostEdit = styled.div`
 `
 export const PostEditLink = styled(Link)`
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.text};
 
     &:hover, &:focus {
         color: orange;
@@ -78,8 +79,12 @@ export const PostEditLink = styled(Link)`
 `
 
 export const PostTextWrapper = styled.div`
-    color: black;
     font-size: 16px;
     padding: 20px 0;
     white-space: pre-wrap;
+`
+
+export const MarkDownWrapper = styled.div`
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
 `

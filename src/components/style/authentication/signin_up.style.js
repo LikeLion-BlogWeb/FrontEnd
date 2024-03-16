@@ -45,7 +45,7 @@ export const ErrorMsgContainer = styled.div`
 export const ToLoginORRegisterLink = styled(Link)`
     margin-left: 10px;
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.text};
     font-size: 20px;
     font-weight: 600;
 

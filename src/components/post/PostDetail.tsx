@@ -8,12 +8,14 @@ import { PostTitle } from "../style/post/postlist.style";
 import MDEditor from "@uiw/react-md-editor";
 import useFetch from "hooks/useFetch";
 import Loader from "components/common/Loader";
+import { useTheme } from "functions/theme.function";
 
 export default function PostDetail({id}: {id: string}) {
     const [post, setPost] = useState<PostDataType | null>(null);
     const { user: { email } } = useContext(AuthContext);
     const navigate = useNavigate();
     const { loading, get, del } = useFetch();
+    const [themeMode] = useTheme();
 
     async function deletePost(id: number): Promise<void> {
         const checkConfirmBeforeDelete = window.confirm('정말 지우시겠습니까?');
@@ -83,12 +85,10 @@ export default function PostDetail({id}: {id: string}) {
                                             </div>
                                         ) 
                                     }
-                                    <Styled.PostTextWrapper data-color-mode="light">
+                                    <Styled.PostTextWrapper data-color-mode={themeMode}>
                                         <MDEditor.Markdown source={post?.content} style={{
                                             padding: "20px 20px 20px 0",
                                             borderRadius: "5px",
-                                            backgroundColor: "white",
-                                            color: "black",
                                         }}/>
                                     </Styled.PostTextWrapper>
                                 </Styled.PostUtilsWrapper>

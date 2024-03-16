@@ -18,6 +18,7 @@ export const PostFormLabel = styled.label`
     font-weight: 500;
     margin-bottom: 10px;
     margin-top: 20px;
+
 `
 
 export const PostFormInput = styled.input`
@@ -25,7 +26,9 @@ export const PostFormInput = styled.input`
     padding: 10px;
     font-size: 16px;
     border-radius: 0.3rem;
-    border: 1px solid lightgray;
+    border: 1px solid ${({ theme }) => theme.bordercolor};
+    background: ${({ theme }) => theme.inputarea};
+    color: ${({ theme }) => theme.text};
 `
 
 export const PostFormTextarea = styled.textarea`
@@ -40,12 +43,14 @@ export const PostFormTextarea = styled.textarea`
 `
 
 export const PostFormSelect = styled.select`
-    border: 1px solid lightgray;
+    border: 1px solid ${({ theme }) => theme.bordercolor};
     max-width: 680px;
     height: 40px;
     padding: 0 20px;
     font-size: 16px;
     border-radius: 0.3rem;
+    background: ${({ theme }) => theme.inputarea};
+    color: ${({ theme }) => theme.text};
 ` 
 
 export const PostFormSubmitButton = styled.input`

@@ -6,9 +6,9 @@ export const PostNavContainer = styled.div`
     display: flex;
     gap: 12px;
     margin: 0 auto;
-    max-width: 860px;
+    max-width: 1200px;
     font-size: 16px;
-    color: black;
+    color:${({ theme }) => theme.text};
     cursor: pointer;
     /* 상 - 좌/하 - 우 */
     padding: 48px 20px 14px 0;
@@ -16,12 +16,12 @@ export const PostNavContainer = styled.div`
 `
 
 export const PostNav = styled.div<PostNavProps>`
-    color: ${props => props.$active === 'active' ? 'orange' : 'black'};
+    color: ${(props) => props.$active === 'active' ? 'orange' : 'theme.text'};
     font-weight: ${props =>  props.$active === 'active' ? '600' : '400'};
     display: flex;
     gap: 12px;
     margin: 0 auto;
-    max-width: 860px;
+    max-width: 1200px;
     font-size: 16px;
     cursor: pointer;
     padding: 48px 20px 0px 20px;
@@ -29,7 +29,7 @@ export const PostNav = styled.div<PostNavProps>`
 
 export const PostListContainer = styled.div`
     min-height: 90vh;
-    max-width: 860px;
+    max-width: 1200px;
     padding: 20px;
     margin: 0 auto;
     text-align: left;
@@ -46,9 +46,9 @@ export const PostContainer = styled.div`
             transform: scale(1.15);
             transition: transform 0.3s ease;
         }
-    background-color: #ffffff;
-    height: 300px; 
-    width: 260px;
+    background: ${({ theme }) => theme.buttonarea};
+    height: 400px; 
+    width: 340px;
     border-radius: 16px;
     padding: 24px 0;
     transform: perspective(2000px);
@@ -74,7 +74,7 @@ export const PostProfile = styled.div`
     border-radius: 50%;
 `
 export const PostEtc = styled.div`
-    color: black;
+    color: ${({ theme }) => theme.text};
     &:hover {
         color: orange;
     }
@@ -83,8 +83,8 @@ export const PostEtc = styled.div`
     }
 `
 export const PostImageContainer = styled.div`
-    width: 260px;
-    height: 160px;
+    width: 340px;
+    height: 200px;
     overflow: hidden;
     margin: 0 auto;
 `
@@ -97,16 +97,16 @@ export const PostImage = styled.div`
 
 export const PostBody = styled.div`
     max-width: 100%;
-    height: 80px;
+    height: 100px;
     margin: 16px 16px 0 16px;
 
 `
 export const PostTitle = styled.div`
     font-size: 24px;
     font-weight: 600;
-    margin-top: 12px;
+    margin-top: 16px;
     padding-bottom: 0.14em;
-    color: black;
+    color: ${({ theme }) => theme.text};
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -120,8 +120,8 @@ export const PostTitle = styled.div`
     }
 `
 export const PostText = styled.div`
-    font-size: 16px;
-    margin-top: 12px;
+    font-size: 18px;
+    margin-top: 16px;
     color: dimgray;
     overflow: hidden;
     white-space: normal;
@@ -132,9 +132,9 @@ export const PostText = styled.div`
 export const PostUtilContainer  = styled.div`
     display: flex;
     flex-direction: row-reverse;
-    gap: 8px;
+    gap: 20px;
     font-size: 14px;
-    color: black;
+    color: ${({ theme }) => theme.text}
     margin: 0 16px;
 `
 export const PostUtilDelete = styled.div`
