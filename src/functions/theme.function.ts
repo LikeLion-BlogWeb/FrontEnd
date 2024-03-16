@@ -12,6 +12,7 @@ export function useTheme(): UseThemeProps {
   const toggleTheme = useCallback(() => {
     if (themeMode === "light") setThemeMode("dark");
     else setThemeMode("light");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [themeMode]);
  
   return [themeMode, toggleTheme];
