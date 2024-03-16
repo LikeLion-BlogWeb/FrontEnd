@@ -11,7 +11,7 @@ export const StyledHeader = styled.header`
 `;
 
 export const HeaderLogoLink = styled(Link)`
-    color: black;
+    color: ${({ theme }) => theme.text};
     font-weight: 700;
     font-size: 32px;
     text-decoration: none;
@@ -23,7 +23,7 @@ interface HeaderLinkProps {
 export const HeaderLink = styled(Link)<HeaderLinkProps>`
     text-decoration: none;
     margin: 0 10px;
-    color: black;
+    color: ${({ theme }) => theme.text};
     display: ${props => props.displayattr==="true" ? "inline-block" : "none"};
 
     &:focus, &:hover {

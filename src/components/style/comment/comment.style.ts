@@ -12,8 +12,8 @@ export const CommentTextarea = styled.textarea`
     padding: 1rem;
     outline: none;
     border: 1px solid orange;
-    background-color: white;
-    color: black;
+    background-color: ${({ theme }) => theme.buttonarea};
+    color: ${({ theme }) => theme.text};
     line-height: 1.75;
     /* 패딩과 테두리를 포함한 크기를 지정함 */
     box-sizing: border-box;

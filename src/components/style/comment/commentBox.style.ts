@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const CommonLightFontDiv = styled.div`
-    color: black;
+    color: ${({ theme }) => theme.text};
     font-weight: lighter;
     font-size: 0.8rem;
 `
@@ -25,7 +25,7 @@ export const ModifyDivContainer = styled.div`
 `
 
 export const CommentContentSpan = styled.span`
-    color: black;
+    color: ${({ theme }) => theme.text};
     font-weight: bold;
     font-size: 1rem;
 `

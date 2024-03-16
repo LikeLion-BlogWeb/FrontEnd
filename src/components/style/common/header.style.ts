@@ -11,7 +11,7 @@ export const Header = styled.header`
 `;
 
 export const HeaderLogoLink = styled(Link)`
-    color: black;
+    color: ${({ theme }) => theme.text};
     font-weight: 700;
     font-size: 32px;
     text-decoration: none;
@@ -23,7 +23,7 @@ interface HeaderLinkProps {
 export const HeaderLink = styled(Link)<HeaderLinkProps>`
     text-decoration: none;
     margin: 0 10px;
-    color: black;
+    color: ${({ theme }) => theme.text};
     display: ${props => props.displayattr==="true" ? "inline-block" : "none"};
 
     &:focus, &:hover {
@@ -33,7 +33,7 @@ export const HeaderLink = styled(Link)<HeaderLinkProps>`
 export const HeaderLoginLink = styled(Link)<HeaderLinkProps>`
     text-decoration: none;
     margin: 0 10px;
-    color: black;
+    color: ${({ theme }) => theme.text};
     border: 1px solid orange;
     border-radius: 10%;
 
@@ -41,6 +41,6 @@ export const HeaderLoginLink = styled(Link)<HeaderLinkProps>`
 
     &:focus, &:hover {
         background-color: orange;
-        color: white;
+        color: ${({ theme }) => theme.buttontext};
     }
 `;

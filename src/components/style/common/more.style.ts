@@ -13,8 +13,8 @@ export const EllipsisButton = styled.button`
     border: none;
     outline: none;
     padding: 0;
-    background-color: #fff;
-    font-size: 1.3rem;
+    background: ${({ theme }) => theme.buttonarea};
+    font-size: 1.6rem;
 
     &:hover {
         cursor: pointer;

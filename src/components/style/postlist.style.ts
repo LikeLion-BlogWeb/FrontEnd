@@ -8,7 +8,7 @@ export const PostNavContainer = styled.div`
     margin: 0 auto;
     max-width: 860px;
     font-size: 16px;
-    color: black;
+    color: ${({ theme }) => theme.text};
     cursor: pointer;
     /* 상 - 좌/하 - 우 */
     padding: 48px 20px 14px 0;
@@ -46,14 +46,14 @@ export const PostContainer = styled.div`
             transform: scale(1.15);
             transition: transform 0.3s ease;
         }
-    background-color: #ffffff;
+    background: ${({ theme }) => theme.postcard};
     height: 300px; 
     width: 260px;
     border-radius: 16px;
     padding: 24px 0;
     transform: perspective(2000px);
     transform-style: preserve-3d;
-    box-shadow: 2px 2px 5px #ceced1;
+    box-shadow: 2px 2px 5px ${({ theme }) => theme.postcardshadow};
 `
 
 export const PostProfileWrapperLink = styled(Link)`
@@ -74,7 +74,7 @@ export const PostProfile = styled.div`
     border-radius: 50%;
 `
 export const PostEtc = styled.div`
-    color: black;
+    color: ${({ theme }) => theme.text};
     &:hover {
         color: orange;
     }
@@ -106,7 +106,7 @@ export const PostTitle = styled.div`
     font-weight: 600;
     padding-top: 0.14em;
     padding-bottom: 0.28em;
-    color: black;
+    color: ${({ theme }) => theme.text};
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -123,7 +123,7 @@ export const PostText = styled.div`
     max-width: 100%;
     height: 40px;
     font-size: 16px;
-    color: dimgray;
+    color: ${({ theme }) => theme.text};
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
@@ -135,12 +135,12 @@ export const PostUtilContainer  = styled.div`
     flex-direction: row-reverse;
     gap: 8px;
     font-size: 14px;
-    color: black;
+    color: ${({ theme }) => theme.text};
     margin: 16px;
 `
 export const PostUtilDelete = styled.div`
     cursor: pointer;
-    color: black;
+    color: ${({ theme }) => theme.text};
 
     &:hover, &:focus {
         color: orange;
@@ -149,7 +149,7 @@ export const PostUtilDelete = styled.div`
 
 export const PostUtilLink = styled(Link)`
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.text};
     cursor: pointer;
 
     &:hover, &:focus {
